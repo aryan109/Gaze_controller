@@ -1,1 +1,2 @@
 sudo ./downloader.py --name gaze-estimation-adas-0002 -o /home/gaze_controller/models
+install packages from requirements.txt: pip install -r requirements.txt
