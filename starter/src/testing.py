@@ -3,7 +3,7 @@ import face_detection as FD
 model_name = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 fd = FD.Model_Face_detection(model_name, 'CPU')
 fd.load_model()
-video_file_path = '#fill it '
+video_file_path = '/home/aryan/gaze_controller/starter/bin/demo.mp4'
 try:
     cap = cv2.VideoCapture(video_file_path)
 except FileNotFoundError:
