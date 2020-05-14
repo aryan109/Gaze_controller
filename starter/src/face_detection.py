@@ -67,6 +67,9 @@ class Model_Face_detection:
         print(result[0])
         fopen = open("testout.txt","w")
         fopen.write(str(result))
+        fopen.write("\n"+str(result.shape))
+        fopen.write("\n"+"result[0][0] \n"+str(result[0][0]))
+        fopen.write("\n"+"result[0][0][0] \n"+str(result[0][0][0]))
         fopen.close()
         # todo complete this method
 
