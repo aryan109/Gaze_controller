@@ -64,8 +64,8 @@ class Model_Face_detection:
         print(result)
         # todo complete this method
 
-    def check_model(self): # todo fill this method
-        raise NotImplementedError
+    # def check_model(self): # todo fill this method
+        # raise NotImplementedError
 
     def preprocess_input(self, image):
         '''
@@ -78,9 +78,9 @@ class Model_Face_detection:
         p_image = p_image.reshape(1, *p_image.shape)
         return p_image
 
-    def preprocess_output(self, outputs):
+    # def preprocess_output(self, outputs):
         '''
         Before feeding the output of this model to the next model,
         you might have to preprocess the output. This function is where you can do that.
         '''
-    raise NotImplementedError
+    # raise NotImplementedError
