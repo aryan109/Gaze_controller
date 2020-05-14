@@ -41,8 +41,9 @@ class Model_Face_detection:
         If your model requires any Plugins, this is where you can load them.
         '''
         core = IECore()
-        self.net = core.load_network(
-            network=self.model, device_name=self.device, num_requests=1)
+        print('in load model')
+        self.net = core.load_network(network=self.model, device_name=self.device, num_requests=1)
+        print('after load model')
 
     def predict(self, image):
         '''
@@ -60,9 +61,13 @@ class Model_Face_detection:
                 break
             else:
                 time.sleep(1)
-
+        print('printing result')
+        
         result = self.net.requests[0].outputs[self.output_name]
-        print(result)
+        print(result[0])
+        fopen = open("testout.txt","w")
+        fopen.write(str(result))
+        fopen.close()
         # todo complete this method
 
     # def check_model(self): # todo fill this method
