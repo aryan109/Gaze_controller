@@ -78,7 +78,7 @@ class Model_Face_detection:
             conf = box[2]
             if conf >= self.threshold:
                  
-                coords = self.preprocess_outputs(box,initial_dims)
+                coords = self.preprocess_output(box,initial_dims)
                  
                 image=self.draw_outputs(coords,image)
         return image
