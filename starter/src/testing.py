@@ -1,5 +1,6 @@
 import face_detection as FD
 import cv2 
+import os   
 
 model_name = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 fd = FD.Model_Face_detection(model_name, 'CPU')
@@ -15,6 +16,10 @@ except Exception as e:
 initial_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 initial_dims = [initial_h,initial_w]
+video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+output_path = './output/'
+out_video = cv2.VideoWriter(os.path.join(output_path, 'output_video.mp4'), cv2.VideoWriter_fourcc(*'avc1'), fps, (initial_w, initial_h), True)
 try:
     print('inside try')
     while cap.isOpened():
@@ -23,8 +28,8 @@ try:
         if not ret:
             break
 
-        fd.predict(frame, initial_dims)
-        break
+        image = fd.predict(frame, initial_dims)
+        out_video.write(image)
 
 
     cap.release()
