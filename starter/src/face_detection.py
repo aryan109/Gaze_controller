@@ -64,7 +64,7 @@ class Model_Face_detection:
         print('printing result')
         
         result = self.net.requests[0].outputs[self.output_name]
-        print(result[0])
+        # print(result[0])
         # result is of shape 1x1xNx7
         # fopen = open("testout.txt","w")
         # fopen.write(str(result))
