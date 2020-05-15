@@ -29,9 +29,8 @@ try:
             break
 
         cropped_image = fd.predict(frame, initial_dims)
-        #find shape of cropped image
+        resized_cropped_image = fd.reshape_after_crop(cropped_image,(initial_w,initial_h))
         print(cropped_image.shape)
-        break
         out_video.write(image)
 
 

@@ -131,3 +131,8 @@ class Model_Face_detection:
         ymax = int(coords[3])
         cropped_image = image[ymin:ymax, xmin:xmax]
         return cropped_image
+
+
+    def reshape_after_crop(cropped_image,dims):
+        resized_cropped_image = cv2.resize(cropped_image, dims, interpolation = cv2.INTER_AREA) 
+        return resized_cropped_image
