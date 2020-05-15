@@ -122,3 +122,12 @@ class Model_Face_detection:
 
          
         return frame
+    
+    def crop_image(image,coords):
+        
+        xmin = int(coords[0])
+        ymin = int(coords[1])
+        xmax = int(coords[2])
+        ymax = int(coords[3])
+        cropped_image = image[ymin:ymax, xmin:xmax]
+        return cropped_image
