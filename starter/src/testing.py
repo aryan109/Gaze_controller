@@ -30,6 +30,8 @@ try:
 
         cropped_image = fd.predict(frame, initial_dims)
         #find shape of cropped image
+        print(cropped_image.shape)
+        break
         out_video.write(image)
 
 
