@@ -45,7 +45,7 @@ class Model_Face_detection:
         self.net = core.load_network(network=self.model, device_name=self.device, num_requests=1)
         print('after load model')
 
-    def predict(self, image):
+    def predict(self, image, initial_dims):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
@@ -65,13 +65,23 @@ class Model_Face_detection:
         
         result = self.net.requests[0].outputs[self.output_name]
         print(result[0])
-        fopen = open("testout.txt","w")
-        fopen.write(str(result))
-        fopen.write("\n"+str(result.shape))
-        fopen.write("\n"+"result[0][0] \n"+str(result[0][0]))
-        fopen.write("\n"+"result[0][0][0] \n"+str(result[0][0][0]))
-        fopen.close()
-        # todo complete this method
+        # result is of shape 1x1xNx7
+        # fopen = open("testout.txt","w")
+        # fopen.write(str(result))
+        # fopen.write("\n"+str(result.shape))
+        # fopen.write("\n"+"result[0][0] \n"+str(result[0][0]))
+        # fopen.write("\n"+"result[0][0][0] \n"+str(result[0][0][0]))
+        # fopen.close()
+        self.threshold = 0.5
+        for box in result[0][0]:
+             
+            conf = box[2]
+            if conf >= self.threshold:
+                 
+                coords = self.preprocess_outputs(box,initial_dims)
+                 
+                image=self.draw_outputs(coords,image)
+        return image
 
     # def check_model(self): # todo fill this method
         # raise NotImplementedError
@@ -87,9 +97,28 @@ class Model_Face_detection:
         p_image = p_image.reshape(1, *p_image.shape)
         return p_image
 
-    # def preprocess_output(self, outputs):
+    def preprocess_output(self, box, initial_dims):
         '''
         Before feeding the output of this model to the next model,
         you might have to preprocess the output. This function is where you can do that.
         '''
+        coords = [box[3] * initial_dims[1],
+                box[4] * initial_dims[0],
+                box[5] * initial_dims[1],
+                box[6] * initial_dims[0]]
+        return coords
     # raise NotImplementedError
+
+    def draw_outputs(self, coords, image):
+         
+        frame = image
+        xmin = int(coords[0])
+        ymin = int(coords[1])
+        xmax = int(coords[2])
+        ymax = int(coords[3])
+         
+         
+        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0,0,255,1))
+
+         
+        return frame

@@ -12,7 +12,9 @@ except FileNotFoundError:
     print("Cannot locate video file: " + video_file_path)
 except Exception as e:
     print("Something else went wrong with the video file: ", e)
-
+initial_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+initial_dims = [initial_h,initial_w]
 try:
     print('inside try')
     while cap.isOpened():
@@ -21,7 +23,7 @@ try:
         if not ret:
             break
 
-        fd.predict(frame)
+        fd.predict(frame, initial_dims)
         break
 
 
