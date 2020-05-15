@@ -62,7 +62,7 @@ class Model_Face_detection:
                 break
             else:
                 time.sleep(1)
-        print('printing result')
+        # print('printing result')
 
         result = self.net.requests[0].outputs[self.output_name]
         # print(result[0])
@@ -82,8 +82,8 @@ class Model_Face_detection:
                 coords = self.preprocess_output(box, initial_dims)
                 image = self.draw_outputs(coords, image)
                 cropped_image = self.crop_image(image, coords)
-                cv2.imshow("cropped image", cropped_image)
-        return image
+                # cv2.imshow("cropped image", cropped_image)
+        return cropped_image
 
     # def check_model(self): # todo fill this method
         # raise NotImplementedError

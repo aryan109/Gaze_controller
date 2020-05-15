@@ -21,14 +21,15 @@ fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_path = './output/'
 out_video = cv2.VideoWriter(os.path.join(output_path, 'output_video.mp4'), cv2.VideoWriter_fourcc(*'avc1'), fps, (initial_w, initial_h), True)
 try:
-    print('inside try')
+    # print('inside try')
     while cap.isOpened():
-        print('in while')
+        # print('in while')
         ret, frame = cap.read()
         if not ret:
             break
 
-        image = fd.predict(frame, initial_dims)
+        cropped_image = fd.predict(frame, initial_dims)
+        #find shape of cropped image
         out_video.write(image)
 
 
