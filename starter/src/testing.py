@@ -28,10 +28,11 @@ try:
         if not ret:
             break
 
+        # print("frame is "+str(frame.shape))
         cropped_image = fd.predict(frame, initial_dims)
-        resized_cropped_image = fd.reshape_after_crop(cropped_image,(initial_w,initial_h))
-        print(cropped_image.shape)
-        out_video.write(image)
+        # print("cropped image is "+str(cropped_image.shape))
+        resized_cropped_image = fd.reshape_after_crop(cropped_image= cropped_image, width= initial_w,height= initial_h)
+        out_video.write(resized_cropped_image)
 
 
     cap.release()
