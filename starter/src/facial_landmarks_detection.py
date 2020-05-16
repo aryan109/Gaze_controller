@@ -10,7 +10,7 @@ import sys
 import numpy as np
 import time
 
-class Model_Facial_landmarks_detection:
+class Model_Facial_landmarks_de:
     '''
     Class for the Face Detection Model.
     '''
@@ -18,6 +18,19 @@ class Model_Facial_landmarks_detection:
         '''
         TODO: Use this to set your instance variables.
         '''
+        self.model_name = model_name
+        self.model_weights = model_name+'.bin'
+        self.model_structure = model_name+'.xml'
+        self.device = device
+        try:
+            self.model = IENetwork(self.model_structure, self.model_weights)
+        except Exception as e:
+            raise ValueError(
+                "Could not Initialise the network. Have you enterred the correct model path?")
+        self.input_name = next(iter(self.model.inputs))
+        self.input_shape = self.model.inputs[self.input_name].shape
+        self.output_name = next(iter(self.model.outputs))
+        self.output_shape = self.model.outputs[self.output_name].shape
         raise NotImplementedError
 
     def load_model(self):
@@ -39,15 +52,15 @@ class Model_Facial_landmarks_detection:
         raise NotImplementedError
 
     def preprocess_input(self, image):
-    '''
-    Before feeding the data into the model for inference,
-    you might have to preprocess it. This function is where you can do that.
-    '''
+        '''
+        Before feeding the data into the model for inference,
+        you might have to preprocess it. This function is where you can do that.
+        '''
         raise NotImplementedError
 
     def preprocess_output(self, outputs):
-    '''
-    Before feeding the output of this model to the next model,
-    you might have to preprocess the output. This function is where you can do that.
-    '''
-        raise NotImplementedError
+         '''
+         Before feeding the output of this model to the next model,
+         you might have to preprocess the output. This function is where you can do that.
+         '''
+         raise NotImplementedError
