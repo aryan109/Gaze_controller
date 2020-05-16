@@ -39,6 +39,10 @@ class Model_Facial_landmarks_de:
         This method is for loading the model to the device specified by the user.
         If your model requires any Plugins, this is where you can load them.
         '''
+        core = IECore()
+        self.net = core.load_network(
+            network=self.model, device_name=self.device, num_requests=1)
+        print('model loaded')
         raise NotImplementedError
 
     def predict(self, image):
