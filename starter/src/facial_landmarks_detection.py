@@ -43,7 +43,7 @@ class Model_Facial_landmarks_de:
             network=self.model, device_name=self.device, num_requests=1)
         print('model loaded')
 
-    def predict(self, image):
+    def predict(self, image, initial_dims):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
@@ -61,8 +61,10 @@ class Model_Facial_landmarks_de:
                 time.sleep(1)
         print('printing result')
         result = self.net.requests[0].outputs[self.output_name]
-        print("result shape: "+ result.shape)
-        print("result: "+ result)
+        print("result shape: "+ str(result.shape))
+        print("result: "+ str(result))
+        print("result[0][0]: "+ str(result[0][0]))
+        print("result[0][0][0]: "+ str(result[0][0][0]))
 
     def check_model(self):
         raise NotImplementedError
