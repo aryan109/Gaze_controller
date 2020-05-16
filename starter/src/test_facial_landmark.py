@@ -18,8 +18,8 @@ initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 initial_dims = [initial_h,initial_w]
 video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
-# output_path = './output/'
-# out_video = cv2.VideoWriter(os.path.join(output_path, 'output_video.mp4'), cv2.VideoWriter_fourcc(*'avc1'), fps, (initial_w, initial_h), True)
+output_path = './output2/' #todo fix video output
+out_video = cv2.VideoWriter(os.path.join(output_path, 'facial_landmark_output_video.mp4'), cv2.VideoWriter_fourcc(*'avc1'), fps, (initial_w, initial_h), True)
 try:
     # print('inside try')
     while cap.isOpened():
@@ -28,13 +28,13 @@ try:
         if not ret:
             break
 
-        result = fld.predict(frame,initial_dims)
-        break
+        real_face_coords, face_point_drawn_frame = fld.predict(frame,initial_dims)
+        
         # print("frame is "+str(frame.shape))
         # cropped_image = fld.predict(frame, initial_dims)
         # print("cropped image is "+str(cropped_image.shape))
         # resized_cropped_image = fld.reshape_after_crop(cropped_image= cropped_image, width= initial_w,height= initial_h)
-        # out_video.write(resized_cropped_image)
+        out_video.write(face_point_drawn_frame)
 
 
     cap.release()

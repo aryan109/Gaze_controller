@@ -59,10 +59,10 @@ class Model_Facial_landmarks_de:
                 break
             else:
                 time.sleep(1)
-        print('printing result')
+        # print('printing result')
         result = self.net.requests[0].outputs[self.output_name]
         # print("result shape: "+ str(result.shape)) # 1x10x1x1
-        print("result: "+ str(result))
+        # print("result: "+ str(result))
         # print("result[0][0]: "+ str(result[0][0]))
         # print("result[0][0][0]: "+ str(result[0][0][0]))
         # print("result[0]: "+ str(result[0][1]))
@@ -70,7 +70,8 @@ class Model_Facial_landmarks_de:
         for i in range(0,10):
             coords.append(result[0][i][0][0])
         real_face_coords = self.preprocess_output(coords, initial_dims)
-        return coords
+        image = self.draw_facial_points(real_face_coords,image)
+        return real_face_coords, image
 
     def check_model(self):
         raise NotImplementedError
@@ -95,8 +96,17 @@ class Model_Facial_landmarks_de:
          for i in range(0,5):
             real_face_coords.append(coords[i*2] * initial_dims[1])#multiply by width
             real_face_coords.append(coords[i*2+1] * initial_dims[0])#multiply by height
-         print(real_face_coords)
+        #  print(real_face_coords)
          return real_face_coords
-         
+
+    def draw_facial_points(self, coords, image):
+        for i in range(0,5):# draw all points on face
+            image = self.draw_point(coords[2*i],coords[2*i+1],image)
+
+    def draw_point(self,x,y,image):
+        x = int(x)
+        y = int(y)
+        image = cv2.circle(image, (x,y), radius=0, color=(0, 0, 255), thickness=-1)
+        return image
 
         
