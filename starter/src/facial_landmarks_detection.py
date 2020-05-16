@@ -10,7 +10,7 @@ import sys
 import numpy as np
 import time
 
-class Model_X:
+class Model_Facial_landmarks_detection:
     '''
     Class for the Face Detection Model.
     '''
