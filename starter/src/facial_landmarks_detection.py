@@ -61,10 +61,11 @@ class Model_Facial_landmarks_de:
                 time.sleep(1)
         print('printing result')
         result = self.net.requests[0].outputs[self.output_name]
-        print("result shape: "+ str(result.shape))
-        print("result: "+ str(result))
-        print("result[0][0]: "+ str(result[0][0]))
-        print("result[0][0][0]: "+ str(result[0][0][0]))
+        # print("result shape: "+ str(result.shape)) # 1x10x1x1
+        # print("result: "+ str(result))
+        # print("result[0][0]: "+ str(result[0][0]))
+        # print("result[0][0][0]: "+ str(result[0][0][0]))
+        # print("result[0]: "+ str(result[0][1]))
 
     def check_model(self):
         raise NotImplementedError

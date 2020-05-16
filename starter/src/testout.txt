@@ -53,3 +53,6 @@ result: [[[[0.2936187 ]]
   [[0.7661488 ]]]]
 result[0][0]: [[0.2936187]]
 result[0][0][0]: [0.2936187]
+
+The net outputs a blob with the shape: [1, 10], containing a row-vector of 10 floating point values
+for five landmarks coordinates in the form (x0, y0, x1, y1, ..., x5, y5).
