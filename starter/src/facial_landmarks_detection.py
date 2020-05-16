@@ -31,7 +31,6 @@ class Model_Facial_landmarks_de:
         self.input_shape = self.model.inputs[self.input_name].shape
         self.output_name = next(iter(self.model.outputs))
         self.output_shape = self.model.outputs[self.output_name].shape
-        raise NotImplementedError
 
     def load_model(self):
         '''
@@ -43,14 +42,27 @@ class Model_Facial_landmarks_de:
         self.net = core.load_network(
             network=self.model, device_name=self.device, num_requests=1)
         print('model loaded')
-        raise NotImplementedError
 
     def predict(self, image):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
         '''
-        raise NotImplementedError
+        processed_image = self.preprocess_input(image)
+
+        self.net.start_async(request_id=0, inputs={
+                             self.input_name: processed_image})
+
+        while True:
+            status = self.net.requests[0].wait(-1)
+            if status == 0:
+                break
+            else:
+                time.sleep(1)
+        print('printing result')
+        result = self.net.requests[0].outputs[self.output_name]
+        print("result shape: "+ result.shape)
+        print("result: "+ result)
 
     def check_model(self):
         raise NotImplementedError
@@ -60,7 +72,11 @@ class Model_Facial_landmarks_de:
         Before feeding the data into the model for inference,
         you might have to preprocess it. This function is where you can do that.
         '''
-        raise NotImplementedError
+        net_input_shape = self.input_shape
+        p_image = cv2.resize(image, (net_input_shape[3], net_input_shape[2]))
+        p_image = p_image.transpose((2, 0, 1))
+        p_image = p_image.reshape(1, *p_image.shape)
+        return p_image
 
     def preprocess_output(self, outputs):
          '''
