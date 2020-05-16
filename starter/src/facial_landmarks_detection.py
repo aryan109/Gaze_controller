@@ -62,10 +62,15 @@ class Model_Facial_landmarks_de:
         print('printing result')
         result = self.net.requests[0].outputs[self.output_name]
         # print("result shape: "+ str(result.shape)) # 1x10x1x1
-        # print("result: "+ str(result))
+        print("result: "+ str(result))
         # print("result[0][0]: "+ str(result[0][0]))
         # print("result[0][0][0]: "+ str(result[0][0][0]))
         # print("result[0]: "+ str(result[0][1]))
+        coords = []
+        for i in range(0,10):
+            coords.append(result[0][i][0][0])
+        real_face_coords = self.preprocess_output(coords, initial_dims)
+        return coords
 
     def check_model(self):
         raise NotImplementedError
@@ -81,9 +86,17 @@ class Model_Facial_landmarks_de:
         p_image = p_image.reshape(1, *p_image.shape)
         return p_image
 
-    def preprocess_output(self, outputs):
+    def preprocess_output(self, coords, initial_dims):
          '''
          Before feeding the output of this model to the next model,
          you might have to preprocess the output. This function is where you can do that.
          '''
-         raise NotImplementedError
+         real_face_coords = []
+         for i in range(0,5):
+            real_face_coords.append(coords[i*2] * initial_dims[1])#multiply by width
+            real_face_coords.append(coords[i*2+1] * initial_dims[0])#multiply by height
+         print(real_face_coords)
+         return real_face_coords
+         
+
+        

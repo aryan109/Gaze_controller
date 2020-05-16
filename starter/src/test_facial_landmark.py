@@ -28,7 +28,7 @@ try:
         if not ret:
             break
 
-        fld.predict(frame,initial_dims)
+        result = fld.predict(frame,initial_dims)
         break
         # print("frame is "+str(frame.shape))
         # cropped_image = fld.predict(frame, initial_dims)
