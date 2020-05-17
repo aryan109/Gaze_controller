@@ -103,7 +103,7 @@ class Model_Facial_landmarks_de:
     def draw_point(self,x,y,image):
         x = int(x)
         y = int(y)
-        draw_image = cv2.circle(image, (x,y), radius=3, color=(255, 0, 0), thickness=3)
+        draw_image = cv2.circle(image, (x,y), radius=2, color=(0, 0, 255), thickness=2)
         return draw_image
 
         
