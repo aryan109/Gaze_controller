@@ -18,8 +18,14 @@ initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 initial_dims = [initial_h,initial_w]
 video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
+output_video_w = int(300)
+output_video_h = int(450)
 output_path = './output/'
-out_video = cv2.VideoWriter(os.path.join(output_path, 'output_video.mp4'), cv2.VideoWriter_fourcc(*'avc1'), fps, (initial_w, initial_h), True)
+out_video = cv2.VideoWriter(os.path.join(output_path, 'output_video2.mp4'),
+                            cv2.VideoWriter_fourcc(*'avc1'), 
+                            fps,
+                            (output_video_w, output_video_h),
+                            True)
 try:
     # print('inside try')
     while cap.isOpened():
@@ -28,10 +34,14 @@ try:
         if not ret:
             break
 
-        # print("frame is "+str(frame.shape))
-        cropped_image = fd.predict(frame, initial_dims)
-        # print("cropped image is "+str(cropped_image.shape))
-        resized_cropped_image = fd.reshape_after_crop(cropped_image= cropped_image, width= initial_w,height= initial_h)
+        # print("frame is "+str(frame.shape))#1080,1920
+        # print(initial_dims)#1080,1920
+        cropped_image = fd.predict(frame, initial_dims) 
+        # print("cropped image is "+str(cropped_image.shape))#373, 237
+        # break
+        resized_cropped_image = fd.reshape_after_crop(cropped_image= cropped_image,
+                                                     width= output_video_w,
+                                                     height= output_video_h)
         out_video.write(resized_cropped_image)
 
 

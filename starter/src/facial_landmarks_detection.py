@@ -70,8 +70,11 @@ class Model_Facial_landmarks_de:
         for i in range(0,10):
             coords.append(result[0][i][0][0])
         real_face_coords = self.preprocess_output(coords, initial_dims)
-        image = self.draw_facial_points(real_face_coords,image)
-        return real_face_coords, image
+        points_drawn_image = self.draw_facial_points(real_face_coords,image)
+        print('predict 0')
+        print("frame "+str(image.shape)+"  drawn frame "+str(points_drawn_image.shape))
+        print('predict 1')
+        return real_face_coords, points_drawn_image
 
     def check_model(self):
         raise NotImplementedError
@@ -100,9 +103,13 @@ class Model_Facial_landmarks_de:
          return real_face_coords
 
     def draw_facial_points(self, coords, image):
+        drawn_image = image
+        print('draw_facial_points 0')
         for i in range(0,5):# draw all points on face
-            image = self.draw_point(coords[2*i],coords[2*i+1],image)
-
+            drawn_image = self.draw_point(coords[2*i],coords[2*i+1],drawn_image)
+            print("frame "+str(image.shape)+"  drawn frame "+str(drawn_image.shape))
+        print('draw facial 1')
+        return drawn_image
     def draw_point(self,x,y,image):
         x = int(x)
         y = int(y)
