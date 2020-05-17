@@ -5,4 +5,4 @@ opening virtual enve
      .\env\Scripts\activate(windows)
 
 #TODO complete 1) headpose detection 
-               2) facial landmark detection
+               
