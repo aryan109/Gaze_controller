@@ -38,9 +38,6 @@ try:
     
         out_video.write(face_point_drawn_frame)
 
-        count += 1
-        print(count)
-
 
     cap.release()
     cv2.destroyAllWindows()
