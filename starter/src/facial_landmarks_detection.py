@@ -59,21 +59,14 @@ class Model_Facial_landmarks_de:
                 break
             else:
                 time.sleep(1)
-        # print('printing result')
+
         result = self.net.requests[0].outputs[self.output_name]
-        # print("result shape: "+ str(result.shape)) # 1x10x1x1
-        # print("result: "+ str(result))
-        # print("result[0][0]: "+ str(result[0][0]))
-        # print("result[0][0][0]: "+ str(result[0][0][0]))
-        # print("result[0]: "+ str(result[0][1]))
+
         coords = []
         for i in range(0,10):
             coords.append(result[0][i][0][0])
         real_face_coords = self.preprocess_output(coords, initial_dims)
         points_drawn_image = self.draw_facial_points(real_face_coords,image)
-        print('predict 0')
-        print("frame "+str(image.shape)+"  drawn frame "+str(points_drawn_image.shape))
-        print('predict 1')
         return real_face_coords, points_drawn_image
 
     def check_model(self):
@@ -104,11 +97,8 @@ class Model_Facial_landmarks_de:
 
     def draw_facial_points(self, coords, image):
         drawn_image = image
-        print('draw_facial_points 0')
         for i in range(0,5):# draw all points on face
             drawn_image = self.draw_point(coords[2*i],coords[2*i+1],drawn_image)
-            print("frame "+str(image.shape)+"  drawn frame "+str(drawn_image.shape))
-        print('draw facial 1')
         return drawn_image
     def draw_point(self,x,y,image):
         x = int(x)

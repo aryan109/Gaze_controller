@@ -35,14 +35,8 @@ try:
             break
 
         real_face_coords, face_point_drawn_frame = fld.predict(frame,initial_dims)
-        
-        print("frame "+str(frame.shape)+"  drawn frame "+str(face_point_drawn_frame.shape))
-        break
-        # cropped_image = fld.predict(frame, initial_dims)
-        # print("cropped image is "+str(cropped_image.shape))
-        # resized_cropped_image = fld.reshape_after_crop(cropped_image= cropped_image, width= initial_w,height= initial_h)
-        
-        # out_video.write(face_point_drawn_frame)
+    
+        out_video.write(face_point_drawn_frame)
 
         count += 1
         print(count)
