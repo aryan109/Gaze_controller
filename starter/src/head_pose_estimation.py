@@ -59,7 +59,11 @@ class Model_Head_pose_estimation:
         Before feeding the data into the model for inference,
         you might have to preprocess it. This function is where you can do that.
         '''
-        raise NotImplementedError
+        net_input_shape = self.input_shape
+        p_image = cv2.resize(image, (net_input_shape[3], net_input_shape[2]))
+        p_image = p_image.transpose((2, 0, 1))
+        p_image = p_image.reshape(1, *p_image.shape)
+        return p_image
 
     def preprocess_output(self, outputs):
         '''
