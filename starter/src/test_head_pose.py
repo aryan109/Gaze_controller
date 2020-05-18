@@ -2,7 +2,7 @@ import head_pose_estimation as HPE
 import cv2
 import os
 
-model_name = '/home/aryan/gaze_controller/models/intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009'
+model_name = '/home/aryan/gaze_controller/models/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001'
 hpe = HPE.Model_Head_pose_estimation(model_name, 'CPU')
 hpe.load_model()
 video_file_path = '/home/aryan/gaze_controller/starter/src/output/output_video2.mp4'
@@ -36,7 +36,12 @@ try:
 
         result = hpe.predict(
             frame, initial_dims)
-        print(result)
+        print(f"result shape: {result.shape}") #1x1
+        print(f"result: {result}")
+        print(f"result[0]: {result[0]}")
+        print(f"result[0][0]: {result[0][0]}")
+        
+        
         break
         # out_video.write(face_point_drawn_frame)
 
