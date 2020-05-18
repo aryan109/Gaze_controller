@@ -44,7 +44,7 @@ class Model_Head_pose_estimation:
             network=self.model, device_name=self.device, num_requests=1)
         print('model loaded')
 
-    def predict(self, image):
+    def predict(self, image, initial_dims):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
