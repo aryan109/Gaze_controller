@@ -26,20 +26,6 @@ out_video = cv2.VideoWriter(os.path.join(output_path,
                             (initial_w, initial_h),
                             True)
 count = 0
-# font 
-font = cv2.FONT_HERSHEY_SIMPLEX 
-  
-# org 
-org = (0, 0) 
-  
-# fontScale 
-fontScale = 1
-   
-# Blue color in BGR 
-color = (255, 0, 0) 
-  
-# Line thickness of 2 px 
-thickness = 2
    
 
 try:
@@ -58,8 +44,7 @@ try:
         # print(f"all_result[{hpe.output_name3}]: {all_result[hpe.output_name3]}")
         # Using cv2.putText() method  
         
-        head_pose_out_frame = cv2.putText(frame, all_result, org, font,  
-                   fontScale, color, thickness, cv2.LINE_AA)
+        head_pose_out_frame = hpe.write_on_video(frame,all_result)
         out_video.write(head_pose_out_frame)
 
     cap.release()

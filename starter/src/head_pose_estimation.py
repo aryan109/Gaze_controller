@@ -91,3 +91,38 @@ class Model_Head_pose_estimation:
         you might have to preprocess the output. This function is where you can do that.
         '''
         raise NotImplementedError
+    def write_on_video(self,frame,all_result):
+    
+        # font 
+        font = cv2.FONT_HERSHEY_SIMPLEX 
+
+        # org 
+        org1 = (0, 20)
+        org2 = (0, 40)
+        org3 = (0, 60) 
+
+        # fontScale 
+        fontScale = 0.4
+
+        # red color in BGR 
+        color = (0, 0, 255) 
+
+        # Line thickness of 2 px 
+        thickness = 1
+        s1 = "all_result[{}]: {}".format(self.output_name1,all_result[self.output_name1])
+        s2 = "all_result[{}]: {}".format(self.output_name2,all_result[self.output_name2])
+        s3 = "all_result[{}]: {}".format(self.output_name3,all_result[self.output_name3])
+            
+        # print(s)
+        frame = cv2.putText(frame, s1, org1, font,  
+                   fontScale, color, thickness, cv2.LINE_AA)
+        frame = cv2.putText(frame, s2, org2, font,  
+                   fontScale, color, thickness, cv2.LINE_AA)
+        frame = cv2.putText(frame, s3, org3, font,  
+                   fontScale, color, thickness, cv2.LINE_AA)
+        return frame
+
+
+
+        
+    

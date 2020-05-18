@@ -20,7 +20,7 @@ video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_path = './output2/'
 out_video = cv2.VideoWriter(os.path.join(output_path,
-                                         'facial_landmark_output_video.mp4'),
+                                         'facial_landmark_output_video2.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (initial_w, initial_h),
