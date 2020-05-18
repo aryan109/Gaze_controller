@@ -49,7 +49,21 @@ class Model_Head_pose_estimation:
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
         '''
-        raise NotImplementedError
+        processed_image = self.preprocess_input(image)
+
+        self.net.start_async(request_id=0, inputs={
+                             self.input_name: processed_image})
+
+        while True:
+            status = self.net.requests[0].wait(-1)
+            if status == 0:
+                break
+            else:
+                time.sleep(1)
+
+        result = self.net.requests[0].outputs[self.output_name]
+        return result
+        
 
     def check_model(self):
         raise NotImplementedError
