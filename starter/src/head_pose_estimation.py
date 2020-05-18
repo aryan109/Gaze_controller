@@ -10,10 +10,12 @@ import sys
 import numpy as np
 import time
 
+
 class Model_Head_pose_estimation:
     '''
     Class for the Face Detection Model.
     '''
+
     def __init__(self, model_name, device='CPU', extensions=None):
         '''
         TODO: Use this to set your instance variables.
@@ -31,7 +33,6 @@ class Model_Head_pose_estimation:
         self.input_shape = self.model.inputs[self.input_name].shape
         self.output_name = next(iter(self.model.outputs))
         self.output_shape = self.model.outputs[self.output_name].shape
-
 
     def load_model(self):
         '''
@@ -63,7 +64,6 @@ class Model_Head_pose_estimation:
 
         result = self.net.requests[0].outputs[self.output_name]
         return result
-        
 
     def check_model(self):
         raise NotImplementedError

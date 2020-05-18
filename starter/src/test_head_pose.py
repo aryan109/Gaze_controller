@@ -18,7 +18,7 @@ initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 initial_dims = [initial_h, initial_w]
 video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
-output_path = './output3/' 
+output_path = './output3/'
 # out_video = cv2.VideoWriter(os.path.join(output_path,
 #                                          'head_pose_output_video.mp4'),
 #                             cv2.VideoWriter_fourcc(*'avc1'),
