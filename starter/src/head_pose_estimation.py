@@ -31,8 +31,11 @@ class Model_Head_pose_estimation:
                 "Could not Initialise the network. Have you enterred the correct model path?")
         self.input_name = next(iter(self.model.inputs))
         self.input_shape = self.model.inputs[self.input_name].shape
-        self.output_name = next(iter(self.model.outputs))
-        self.output_shape = self.model.outputs[self.output_name].shape
+        output_iterator = iter(self.model.outputs)
+        self.output_name1 = next(output_iterator)
+        self.output_name2 = next(output_iterator)
+        self.output_name3 = next(output_iterator)
+        self.output_shape = self.model.outputs[self.output_name1].shape
 
     def load_model(self):
         '''
@@ -61,9 +64,12 @@ class Model_Head_pose_estimation:
                 break
             else:
                 time.sleep(1)
-
-        result = self.net.requests[0].outputs[self.output_name]
-        return result
+        all_result = {}
+        all_result[self.output_name1] = self.net.requests[0].outputs[self.output_name1][0][0]
+        all_result[self.output_name2] = self.net.requests[0].outputs[self.output_name2][0][0]
+        all_result[self.output_name3] = self.net.requests[0].outputs[self.output_name3][0][0]
+        
+        return all_result
 
     def check_model(self):
         raise NotImplementedError

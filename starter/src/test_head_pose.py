@@ -34,12 +34,12 @@ try:
         if not ret:
             break
 
-        result = hpe.predict(
+        all_result = hpe.predict(
             frame, initial_dims)
-        print(f"result shape: {result.shape}") #1x1
-        print(f"result: {result}")
-        print(f"result[0]: {result[0]}")
-        print(f"result[0][0]: {result[0][0]}")
+        print(f"result: {all_result}")
+        print(f"all_result[{hpe.output_name1}]: {all_result[hpe.output_name1]}")
+        print(f"all_result[{hpe.output_name2}]: {all_result[hpe.output_name2]}")
+        print(f"all_result[{hpe.output_name3}]: {all_result[hpe.output_name3]}")
         
         
         break
