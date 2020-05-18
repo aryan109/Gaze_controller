@@ -18,7 +18,20 @@ class Model_Head_pose_estimation:
         '''
         TODO: Use this to set your instance variables.
         '''
-        raise NotImplementedError
+        self.model_name = model_name
+        self.model_weights = model_name+'.bin'
+        self.model_structure = model_name+'.xml'
+        self.device = device
+        try:
+            self.model = IENetwork(self.model_structure, self.model_weights)
+        except Exception as e:
+            raise ValueError(
+                "Could not Initialise the network. Have you enterred the correct model path?")
+        self.input_name = next(iter(self.model.inputs))
+        self.input_shape = self.model.inputs[self.input_name].shape
+        self.output_name = next(iter(self.model.outputs))
+        self.output_shape = self.model.outputs[self.output_name].shape
+
 
     def load_model(self):
         '''
