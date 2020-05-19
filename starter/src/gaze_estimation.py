@@ -28,15 +28,15 @@ class Model_Gaze_estimation:
             raise ValueError(
                 "Could not Initialise the network. Have you enterred the correct model path?")
         input_iterator = iter(self.model.inputs)# check inputs 
-        self.input_name1 = next(input_iterator)
-        self.input_name2 = next(input_iterator)
-        self.input_name3 = next(input_iterator)
-        self.input_shape1 = self.model.inputs[self.input_name1].shape
-        self.input_shape2 = self.model.inputs[self.input_name2].shape
-        self.input_shape3 = self.model.inputs[self.input_name3].shape
+        self.input_name1 = next(input_iterator) #head_pose_angles
+        self.input_name2 = next(input_iterator) #left_eye_image
+        self.input_name3 = next(input_iterator) #right_eye_image
+        self.input_shape1 = self.model.inputs[self.input_name1].shape # [1,3]
+        self.input_shape2 = self.model.inputs[self.input_name2].shape # [1, 3, 60, 60]
+        self.input_shape3 = self.model.inputs[self.input_name3].shape # [1, 3, 60, 60]
         output_iterator = iter(self.model.outputs)
-        self.output_name = next(output_iterator)
-        self.output_shape = self.model.outputs[self.output_name].shape
+        self.output_name = next(output_iterator) #gaze_vector
+        self.output_shape = self.model.outputs[self.output_name].shape #[1, 3]
 
     def load_model(self):
         '''
@@ -65,7 +65,12 @@ class Model_Gaze_estimation:
         Before feeding the data into the model for inference,
         you might have to preprocess it. This function is where you can do that.
         '''
-        raise NotImplementedError
+        #reshapes input image
+        net_input_shape = self.input_shape2
+        p_image = cv2.resize(image, (net_input_shape[3], net_input_shape[2]))
+        p_image = p_image.transpose((2, 0, 1))
+        p_image = p_image.reshape(1, *p_image.shape)
+        return p_image
 
     def preprocess_output(self, outputs):
         '''
