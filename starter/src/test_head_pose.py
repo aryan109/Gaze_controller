@@ -1,4 +1,4 @@
-import head_pose_estimation as HPE
+import starter.src.head_pose_estimation as HPE
 import cv2
 import os
 
