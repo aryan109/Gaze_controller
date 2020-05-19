@@ -35,10 +35,8 @@ class Model_Gaze_estimation:
         self.input_shape2 = self.model.inputs[self.input_name2].shape
         self.input_shape3 = self.model.inputs[self.input_name3].shape
         output_iterator = iter(self.model.outputs)
-        self.output_name1 = next(output_iterator)
-        self.output_name2 = next(output_iterator)
-        self.output_name3 = next(output_iterator)
-        self.output_shape = self.model.outputs[self.output_name1].shape
+        self.output_name = next(output_iterator)
+        self.output_shape = self.model.outputs[self.output_name].shape
 
     def load_model(self):
         '''
