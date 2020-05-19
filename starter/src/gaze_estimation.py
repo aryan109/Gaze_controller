@@ -39,7 +39,11 @@ class Model_Gaze_estimation:
         This method is for loading the model to the device specified by the user.
         If your model requires any Plugins, this is where you can load them.
         '''
-        raise NotImplementedError
+        core = IECore()
+        self.net = core.load_network(
+            network=self.model, device_name=self.device, num_requests=1)
+        print('model loaded')
+
 
     def predict(self, image):
         '''
