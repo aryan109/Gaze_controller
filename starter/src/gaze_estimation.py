@@ -11,8 +11,27 @@ class Model_Gaze_estimation:
         '''
         TODO: Use this to set your instance variables.
         '''
-        
-        raise NotImplementedError
+        self.model_name = model_name
+        self.model_weights = model_name+'.bin'
+        self.model_structure = model_name+'.xml'
+        self.device = device
+        try:
+            self.model = IENetwork(self.model_structure, self.model_weights)
+        except Exception as e:
+            raise ValueError(
+                "Could not Initialise the network. Have you enterred the correct model path?")
+        input_iterator = iter(self.model.inputs)
+        self.input_name1 = next(input_iterator)
+        self.input_name2 = next(input_iterator)
+        self.input_name3 = next(input_iterator)
+        self.input_shape1 = self.model.inputs[self.input_name1].shape
+        self.input_shape2 = self.model.inputs[self.input_name2].shape
+        self.input_shape3 = self.model.inputs[self.input_name3].shape
+        output_iterator = iter(self.model.outputs)
+        self.output_name1 = next(output_iterator)
+        self.output_name2 = next(output_iterator)
+        self.output_name3 = next(output_iterator)
+        self.output_shape = self.model.outputs[self.output_name1].shape
 
     def load_model(self):
         '''
