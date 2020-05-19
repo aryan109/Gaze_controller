@@ -20,7 +20,7 @@ class Model_Gaze_estimation:
         except Exception as e:
             raise ValueError(
                 "Could not Initialise the network. Have you enterred the correct model path?")
-        input_iterator = iter(self.model.inputs)
+        input_iterator = iter(self.model.inputs)# check inputs 
         self.input_name1 = next(input_iterator)
         self.input_name2 = next(input_iterator)
         self.input_name3 = next(input_iterator)
