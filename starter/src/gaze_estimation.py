@@ -2,6 +2,13 @@
 This is a sample class for a model. You may choose to use it as-is or make any changes to it.
 This has been provided just to give you an idea of how to structure your model class.
 '''
+from openvino.inference_engine import IENetwork, IECore
+import os
+import cv2
+import argparse
+import sys
+import numpy as np
+import time
 
 class Model_Gaze_estimation:
     '''
