@@ -1,8 +1,8 @@
 import starter.src.face_detection as FD
 import starter.src.facial_landmarks_detection as FLD
 import starter.src.head_pose_estimation as HPE
-import cv2 
-import os   
+import cv2
+import os
 
 model_name1 = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 model_name2 = '/home/aryan/gaze_controller/models/intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009'
@@ -25,14 +25,14 @@ except Exception as e:
     print("Something else went wrong with the video file: ", e)
 initial_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-initial_dims = [initial_h,initial_w]
+initial_dims = [initial_h, initial_w]
 video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_video_w = int(300)
 output_video_h = int(450)
 output_path = './output/'
 out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output.mp4'),
-                            cv2.VideoWriter_fourcc(*'avc1'), 
+                            cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
                             True)
@@ -46,23 +46,23 @@ try:
 
         # print("frame is "+str(frame.shape))#1080,1920
         # print(initial_dims)#1080,1920
-        cropped_image = fd.predict(frame, initial_dims) 
-        real_face_coords, face_point_drawn_frame = fld.predict(cropped_image, initial_dims)
+        cropped_image = fd.predict(frame, initial_dims)
+        real_face_coords, face_point_drawn_frame = fld.predict(
+            cropped_image, initial_dims)
         head_pose_angles = hpe.predict(frame, initial_dims)
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
-        
-        face_point_drawn_frame = fd.reshape_after_crop(cropped_image= face_point_drawn_frame,
-                                                     width= output_video_w,
-                                                     height= output_video_h)
-        head_pose_out_frame = hpe.write_on_video(face_point_drawn_frame, head_pose_angles)
+
+        face_point_drawn_frame = fd.reshape_after_crop(cropped_image=face_point_drawn_frame,
+                                                       width=output_video_w,
+                                                       height=output_video_h)
+        head_pose_out_frame = hpe.write_on_video(
+            face_point_drawn_frame, head_pose_angles)
 
         out_video.write(head_pose_out_frame)
-
 
     cap.release()
     cv2.destroyAllWindows()
 
 except Exception as e:
     print("Could not run Inference: ", e)
-
