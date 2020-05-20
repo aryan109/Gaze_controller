@@ -1,4 +1,4 @@
-import face_detection as FD
+import starter.src.face_detection as FD
 import cv2 
 import os   
 

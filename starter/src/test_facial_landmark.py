@@ -1,4 +1,4 @@
-import facial_landmarks_detection as FLD
+import starter.src.facial_landmarks_detection as FLD
 import cv2
 import os
 
