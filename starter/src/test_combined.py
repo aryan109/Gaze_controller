@@ -51,12 +51,13 @@ try:
         head_pose_angles = hpe.predict(frame, initial_dims)
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
+        
         face_point_drawn_frame = fd.reshape_after_crop(cropped_image= face_point_drawn_frame,
                                                      width= output_video_w,
                                                      height= output_video_h)
-        
+        head_pose_out_frame = hpe.write_on_video(face_point_drawn_frame, head_pose_angles)
 
-        out_video.write(face_point_drawn_frame)
+        out_video.write(head_pose_out_frame)
 
 
     cap.release()
