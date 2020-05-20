@@ -1,6 +1,6 @@
-import starter.src.face_detection as FD
-import starter.src.facial_landmarks_detection as FLD
-import starter.src.head_pose_estimation as HPE
+import face_detection as FD
+import facial_landmarks_detection as FLD
+import head_pose_estimation as HPE
 import cv2
 import os
 
@@ -47,19 +47,24 @@ try:
         # print("frame is "+str(frame.shape))#1080,1920
         # print(initial_dims)#1080,1920
         cropped_image = fd.predict(frame, initial_dims)
+
+        resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
+                                                       width=output_video_w,
+                                                       height=output_video_h)
+
         real_face_coords, face_point_drawn_frame = fld.predict(
-            cropped_image, initial_dims)
-        head_pose_angles = hpe.predict(frame, initial_dims)
+            resized_cropped_image, [output_video_h, output_video_w])
+        
+        head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
 
-        face_point_drawn_frame = fd.reshape_after_crop(cropped_image=face_point_drawn_frame,
-                                                       width=output_video_w,
-                                                       height=output_video_h)
+        
         head_pose_out_frame = hpe.write_on_video(
             face_point_drawn_frame, head_pose_angles)
-
         out_video.write(head_pose_out_frame)
+
+        
 
     cap.release()
     cv2.destroyAllWindows()
