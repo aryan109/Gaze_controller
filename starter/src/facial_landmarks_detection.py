@@ -101,7 +101,8 @@ class Model_Facial_landmarks_de:
 
     def draw_facial_points(self, coords, image):
         drawn_image = image
-        for i in range(0, 5):  # draw all points on face
+        n = int(len(coords)/2)
+        for i in range(0, n):  # draw all points on face
             drawn_image = self.draw_point(
                 coords[2*i], coords[2*i+1], drawn_image)
         return drawn_image

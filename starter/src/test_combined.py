@@ -31,7 +31,7 @@ fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_video_w = int(300)
 output_video_h = int(450)
 output_path = './output/'
-out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output.mp4'),
+out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output2.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
@@ -54,9 +54,15 @@ try:
 
         real_face_coords = fld.predict(
             resized_cropped_image, [output_video_h, output_video_w])
-        face_point_drawn_frame = fld.draw_facial_points(real_face_coords,resized_cropped_image)
         
+        left_eye_coords = real_face_coords[:2]
+        right_eye_coords = real_face_coords[2:4]
+        face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
+        face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
+
+
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
+        
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
 
