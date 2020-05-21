@@ -13,8 +13,8 @@ def crop_image(image, coords):
         return cropped_image
 
 def generate_rectangle_coordinates_from_midpoint(x, y, delta):
-    xmin = x - delta
-    ymin = y - delta
+    xmin = max(x - delta,0)
+    ymin = max(y - delta,0)
     xmax = x + delta
     ymax = y + delta
     rect_coords = [xmin, ymin, xmax, ymax]
