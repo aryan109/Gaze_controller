@@ -4,6 +4,7 @@ import head_pose_estimation as HPE
 import cv2
 import os
 
+
 def crop_image(image, coords):
         xmin = int(coords[0])
         ymin = int(coords[1])
@@ -12,11 +13,11 @@ def crop_image(image, coords):
         cropped_image = image[ymin:ymax, xmin:xmax]
         return cropped_image
 
-def generate_rectangle_coordinates_from_midpoint(x, y, delta):
+def generate_rectangle_coordinates_from_midpoint(x, y, delta, maxlim):
     xmin = max(x - delta,0)
     ymin = max(y - delta,0)
-    xmax = x + delta
-    ymax = y + delta
+    xmax = min(x + delta, maxlim)
+    ymax = min(y + delta, maxlim)
     rect_coords = [xmin, ymin, xmax, ymax]
     return rect_coords
 
@@ -88,8 +89,16 @@ try:
         face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
         face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
-        left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(left_eye_coords[0], left_eye_coords[1], delta)
-        right_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(right_eye_coords[0], right_eye_coords[1], delta)
+        left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(
+                                left_eye_coords[0],
+                                left_eye_coords[1],
+                                delta,
+                                300)
+        right_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(
+                                right_eye_coords[0], 
+                                right_eye_coords[1], 
+                                delta,
+                                300)
 
         cropping_coords = [50,50,200,200]#testing
         left_eye_frame = crop_image(resized_cropped_image,left_eye_rect_coords)
