@@ -54,7 +54,7 @@ output_video_w = int(300)
 output_video_h = int(450)
 delta = 60
 output_path = './output/'
-out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output2.mp4'),
+out_video = cv2.VideoWriter(os.path.join(output_path, 'resized_cropped_output3.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
@@ -90,8 +90,8 @@ try:
         
         left_eye_coords = real_face_coords[:2]
         right_eye_coords = real_face_coords[2:4]
-        face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
-        face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
+        # face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
+        # face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
         left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(
                                 left_eye_coords[0],
@@ -119,9 +119,9 @@ try:
         # break
 
         
-        head_pose_out_frame = hpe.write_on_video(
-            face_point_drawn_frame, head_pose_angles)
-        out_video.write(head_pose_out_frame)
+        # head_pose_out_frame = hpe.write_on_video(
+        #     face_point_drawn_frame, head_pose_angles)
+        out_video.write(resized_cropped_image)
 
         
 
