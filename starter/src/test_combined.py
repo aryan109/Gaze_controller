@@ -54,7 +54,7 @@ output_video_w = int(300)
 output_video_h = int(450)
 delta = 60
 output_path = './output/'
-out_video = cv2.VideoWriter(os.path.join(output_path, 'resized_cropped_output3.mp4'),
+out_video = cv2.VideoWriter(os.path.join(output_path, 'final_output.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
@@ -90,8 +90,6 @@ try:
         
         left_eye_coords = real_face_coords[:2]
         right_eye_coords = real_face_coords[2:4]
-        # face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
-        # face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
         left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(
                                 left_eye_coords[0],
@@ -104,7 +102,6 @@ try:
                                 delta,
                                 300)
 
-        cropping_coords = [50,50,200,200]#testing
         left_eye_frame = crop_image(resized_cropped_image,left_eye_rect_coords)
         right_eye_frame = crop_image(resized_cropped_image,right_eye_rect_coords)
         resized_left_eye_frame = resize_image(left_eye_frame,2*delta,2*delta)
@@ -114,14 +111,15 @@ try:
         right_eye_out_video.write(resized_right_eye_frame)
 
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
-        
+        face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
+        face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
 
         
-        # head_pose_out_frame = hpe.write_on_video(
-        #     face_point_drawn_frame, head_pose_angles)
-        out_video.write(resized_cropped_image)
+        head_pose_out_frame = hpe.write_on_video(
+            face_point_drawn_frame, head_pose_angles)
+        out_video.write(head_pose_out_frame)
 
         
 
