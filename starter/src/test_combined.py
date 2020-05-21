@@ -52,8 +52,9 @@ try:
                                                        width=output_video_w,
                                                        height=output_video_h)
 
-        real_face_coords, face_point_drawn_frame = fld.predict(
+        real_face_coords = fld.predict(
             resized_cropped_image, [output_video_h, output_video_w])
+        face_point_drawn_frame = fld.draw_facial_points(real_face_coords,resized_cropped_image)
         
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
         # print("cropped image is "+str(cropped_image.shape))#373, 237

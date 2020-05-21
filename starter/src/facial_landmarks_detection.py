@@ -68,8 +68,8 @@ class Model_Facial_landmarks_de:
         for i in range(0, 10):
             coords.append(result[0][i][0][0])
         real_face_coords = self.preprocess_output(coords, initial_dims)
-        points_drawn_image = self.draw_facial_points(real_face_coords, image)
-        return real_face_coords, points_drawn_image
+        # points_drawn_image = self.draw_facial_points(real_face_coords, image)
+        return real_face_coords
 
     def check_model(self):
         raise NotImplementedError
