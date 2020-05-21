@@ -12,6 +12,15 @@ def crop_image(image, coords):
         cropped_image = image[ymin:ymax, xmin:xmax]
         return cropped_image
 
+def generate_rectangle_coordinates_from_midpoint(x, y, delta):
+    xmin = x - delta
+    ymin = y - delta
+    xmax = x + delta
+    ymax = y + delta
+    rect_coords = [xmin, ymin, xmax, ymax]
+    return rect_coords
+
+
 model_name1 = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 model_name2 = '/home/aryan/gaze_controller/models/intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009'
 model_name3 = '/home/aryan/gaze_controller/models/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001'
