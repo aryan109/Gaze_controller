@@ -73,7 +73,7 @@ try:
         face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
         face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
-        cropping_coords = [50,50,200,200]
+        cropping_coords = [50,50,200,200]#testing
         cropped_face_point_drawn_frame = crop_image(resized_cropped_image,cropping_coords)
         cropped_out_video.write(cropped_face_point_drawn_frame)
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
