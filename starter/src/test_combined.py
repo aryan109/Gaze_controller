@@ -4,6 +4,14 @@ import head_pose_estimation as HPE
 import cv2
 import os
 
+def crop_image(image, coords):
+        xmin = int(coords[0])
+        ymin = int(coords[1])
+        xmax = int(coords[2])
+        ymax = int(coords[3])
+        cropped_image = image[ymin:ymax, xmin:xmax]
+        return cropped_image
+
 model_name1 = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 model_name2 = '/home/aryan/gaze_controller/models/intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009'
 model_name3 = '/home/aryan/gaze_controller/models/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001'
@@ -36,6 +44,11 @@ out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output2.mp4'),
                             fps,
                             (output_video_w, output_video_h),
                             True)
+cropped_out_video = cv2.VideoWriter(os.path.join(output_path, 'cropped_comb_output2.mp4'),
+                            cv2.VideoWriter_fourcc(*'avc1'),
+                            fps,
+                            (150, 150),
+                            True)
 try:
     # print('inside try')
     while cap.isOpened():
@@ -60,7 +73,9 @@ try:
         face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
         face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
-
+        cropping_coords = [50,50,200,200]
+        cropped_face_point_drawn_frame = crop_image(resized_cropped_image,cropping_coords)
+        cropped_out_video.write(cropped_face_point_drawn_frame)
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
         
         # print("cropped image is "+str(cropped_image.shape))#373, 237
