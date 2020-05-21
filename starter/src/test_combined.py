@@ -4,6 +4,10 @@ import head_pose_estimation as HPE
 import cv2
 import os
 
+def resize_image(image, width, height):
+        dims = (width, height)
+        resized_image = cv2.resize(image, dims, interpolation = cv2.INTER_AREA) 
+        return resized_image
 
 def crop_image(image, coords):
         xmin = int(coords[0])
@@ -103,9 +107,11 @@ try:
         cropping_coords = [50,50,200,200]#testing
         left_eye_frame = crop_image(resized_cropped_image,left_eye_rect_coords)
         right_eye_frame = crop_image(resized_cropped_image,right_eye_rect_coords)
-
-        left_eye_out_video.write(left_eye_frame)
-        right_eye_out_video.write(right_eye_frame)
+        resized_left_eye_frame = resize_image(left_eye_frame,2*delta,2*delta)
+        resized_right_eye_frame = resize_image(right_eye_frame,2*delta,2*delta)
+        
+        left_eye_out_video.write(resized_left_eye_frame)
+        right_eye_out_video.write(resized_right_eye_frame)
 
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
         
