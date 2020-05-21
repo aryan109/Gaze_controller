@@ -52,7 +52,7 @@ video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_video_w = int(300)
 output_video_h = int(450)
-delta = 100
+delta = 60
 output_path = './output/'
 out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output2.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
