@@ -47,16 +47,22 @@ video_len = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 output_video_w = int(300)
 output_video_h = int(450)
+delta = 100
 output_path = './output/'
 out_video = cv2.VideoWriter(os.path.join(output_path, 'comb_output2.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
                             True)
-cropped_out_video = cv2.VideoWriter(os.path.join(output_path, 'cropped_comb_output2.mp4'),
+left_eye_out_video = cv2.VideoWriter(os.path.join(output_path, 'left_eye_output.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
-                            (150, 150),
+                            (2*delta, 2*delta),
+                            True)
+right_eye_out_video = cv2.VideoWriter(os.path.join(output_path, 'right_eye_output.mp4'),
+                            cv2.VideoWriter_fourcc(*'avc1'),
+                            fps,
+                            (2*delta, 2*delta),
                             True)
 try:
     # print('inside try')
@@ -82,9 +88,16 @@ try:
         face_point_drawn_frame = fld.draw_facial_points(left_eye_coords,resized_cropped_image)
         face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
 
+        left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(left_eye_coords[0], left_eye_coords[1], delta)
+        right_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(right_eye_coords[0], right_eye_coords[1], delta)
+
         cropping_coords = [50,50,200,200]#testing
-        cropped_face_point_drawn_frame = crop_image(resized_cropped_image,cropping_coords)
-        cropped_out_video.write(cropped_face_point_drawn_frame)
+        left_eye_frame = crop_image(resized_cropped_image,left_eye_rect_coords)
+        right_eye_frame = crop_image(resized_cropped_image,right_eye_rect_coords)
+
+        left_eye_out_video.write(left_eye_frame)
+        right_eye_out_video.write(right_eye_frame)
+
         head_pose_angles = hpe.predict(resized_cropped_image, [output_video_h, output_video_w])
         
         # print("cropped image is "+str(cropped_image.shape))#373, 237
