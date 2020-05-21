@@ -73,11 +73,18 @@ class Model_Face_detection:
         # fopen.write("\n"+"result[0][0] \n"+str(result[0][0]))
         # fopen.write("\n"+"result[0][0][0] \n"+str(result[0][0][0]))
         # fopen.close()
-        self.threshold = 0.5
+        self.threshold = 0.2
+        res = result[0][0]
+        conf_arr = res[2]
+        max_conf = 0
+        for box in result[0][0]:
+            conf = box[2]
+            if conf > max_conf:
+                max_conf = conf
         for box in result[0][0]:
 
             conf = box[2]
-            if conf >= self.threshold:
+            if conf == max_conf  :
 
                 coords = self.preprocess_output(box, initial_dims)
                 # image = self.draw_outputs(coords, image)

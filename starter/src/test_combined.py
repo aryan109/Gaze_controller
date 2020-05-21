@@ -54,7 +54,7 @@ output_video_w = int(300)
 output_video_h = int(450)
 delta = 60
 output_path = './output/'
-out_video = cv2.VideoWriter(os.path.join(output_path, 'final_output.mp4'),
+out_video = cv2.VideoWriter(os.path.join(output_path, 'best_conf_final_output.mp4'),
                             cv2.VideoWriter_fourcc(*'avc1'),
                             fps,
                             (output_video_w, output_video_h),
