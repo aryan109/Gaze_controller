@@ -57,7 +57,10 @@ class Model_Gaze_estimation:
         '''
         processed_left_eye_image =self.preprocess_input(left_eye_image)
         processed_right_eye_image =self.preprocess_input(right_eye_image)
-        head_pose_angles_list = [[head_pose_angles[0], head_pose_angles[1],head_pose_angles[1]]]
+        head_pose_angles_list = [[head_pose_angles['angle_p_fc'], 
+                                head_pose_angles['angle_r_fc'],
+                                head_pose_angles['angle_y_fc']]]
+                                
         net_input = {input_name1:head_pose_angles_list,
                     input_name2:processed_left_eye_image,
                     input_name3:processed_right_eye_image}

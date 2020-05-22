@@ -1,7 +1,7 @@
 import face_detection as FD
 import facial_landmarks_detection as FLD
 import head_pose_estimation as HPE
-import Model_Gaze_estimation as GME
+import gaze_estimation as GME
 import cv2
 import os
 
