@@ -1,6 +1,7 @@
 import face_detection as FD
 import facial_landmarks_detection as FLD
 import head_pose_estimation as HPE
+import Model_Gaze_estimation as GME
 import cv2
 import os
 
@@ -29,10 +30,11 @@ def generate_rectangle_coordinates_from_midpoint(x, y, delta, maxlim):
 model_name1 = '/home/aryan/gaze_controller/models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
 model_name2 = '/home/aryan/gaze_controller/models/intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009'
 model_name3 = '/home/aryan/gaze_controller/models/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001'
-
+model_name4 = '/home/aryan/gaze_controller/models/intel/gaze-estimation-adas-0002/FP32/gaze-estimation-adas-0002'
 fd = FD.Model_Face_detection(model_name1, 'CPU')
 fld = FLD.Model_Facial_landmarks_de(model_name2, 'CPU')
 hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
+gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
 
 fd.load_model()
 fld.load_model()
