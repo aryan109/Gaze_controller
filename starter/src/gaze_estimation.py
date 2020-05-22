@@ -50,7 +50,7 @@ class Model_Gaze_estimation:
         print('model loaded')
 
 
-    def predict(self, image):
+    def predict(self, head_pose_angles, left_eye_image, right_eye_image):
         '''
         TODO: You will need to complete this method.
         This method is meant for running predictions on the input image.
