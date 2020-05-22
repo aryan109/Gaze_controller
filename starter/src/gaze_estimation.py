@@ -61,11 +61,13 @@ class Model_Gaze_estimation:
                                 head_pose_angles['angle_r_fc'],
                                 head_pose_angles['angle_y_fc']]]
         angle_shape = np.array(head_pose_angles_list).shape
-        net_input = {self.input_name1:head_pose_angles_list,
-                    self.input_name2:processed_left_eye_image,
-                    self.input_name3:processed_right_eye_image}
+        net_input = {}
 
-        self.net.start_async(requst_id=0, inputs=net_input)
+        # self.net.start_async(requst_id=0, inputs=net_input)
+        self.net.start_async(request_id=0, inputs={
+                             self.input_name1: head_pose_angles_list,
+                             self.input_name2: processed_left_eye_image,
+                             self.input_name3: processed_right_eye_image})
         while True:
             status = self.net.requests[0].wait(-1)
             if status == 0:

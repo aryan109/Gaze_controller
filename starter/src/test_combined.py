@@ -119,8 +119,7 @@ try:
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
         gaze_result =gme.predict(head_pose_angles,resized_left_eye_frame,resized_right_eye_frame)
-        print("gaze result is "+str(gaze_result))
-        break
+        print("gaze result is "+str(gaze_result))#[[-0.35219544 -0.24678294 -0.77211046]]
         
         head_pose_out_frame = hpe.write_on_video(
             face_point_drawn_frame, head_pose_angles)
