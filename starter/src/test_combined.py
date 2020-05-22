@@ -39,6 +39,7 @@ gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
 fd.load_model()
 fld.load_model()
 hpe.load_model()
+gme.load_model()
 video_file_path = '/home/aryan/gaze_controller/starter/bin/demo.mp4'
 try:
     cap = cv2.VideoCapture(video_file_path)
@@ -117,7 +118,9 @@ try:
         face_point_drawn_frame = fld.draw_facial_points(right_eye_coords,face_point_drawn_frame)
         # print("cropped image is "+str(cropped_image.shape))#373, 237
         # break
-
+        gaze_result =gme.predict(head_pose_angles,resized_left_eye_frame,resized_right_eye_frame)
+        print("gaze result is "+str(gaze_result))
+        break
         
         head_pose_out_frame = hpe.write_on_video(
             face_point_drawn_frame, head_pose_angles)
