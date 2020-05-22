@@ -61,8 +61,16 @@ class Model_Gaze_estimation:
         net_input = {input_name1:head_pose_angles_list,
                     input_name2:processed_left_eye_image,
                     input_name3:processed_right_eye_image}
+        self.network.start_async(requst_id=0, inputs=net_input)
+        while True:
+            status = self.net.requests[0].wait(-1)
+            if status == 0:
+                break
+            else:
+                time.sleep(1)
+        result = self.net.requests[0].outputs[self.output_name]
+        return result
         
-        raise NotImplementedError
 
     def check_model(self):
         raise NotImplementedError
