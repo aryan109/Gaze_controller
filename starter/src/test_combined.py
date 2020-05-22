@@ -2,6 +2,7 @@ import face_detection as FD
 import facial_landmarks_detection as FLD
 import head_pose_estimation as HPE
 import gaze_estimation as GME
+import mouse_controller as MC
 import cv2
 import os
 
@@ -35,6 +36,7 @@ fd = FD.Model_Face_detection(model_name1, 'CPU')
 fld = FLD.Model_Facial_landmarks_de(model_name2, 'CPU')
 hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
 gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
+mc = MC.MouseController(precision= 'medium', speed='medium')
 
 fd.load_model()
 fld.load_model()
@@ -121,6 +123,8 @@ try:
         gaze_result =gme.predict(head_pose_angles,resized_left_eye_frame,resized_right_eye_frame)
         print("gaze result is "+str(gaze_result))#[[-0.35219544 -0.24678294 -0.77211046]]
         
+        mc.move(gaze_result[0][0], gaze_result[0][1])
+
         head_pose_out_frame = hpe.write_on_video(
             face_point_drawn_frame, head_pose_angles)
         out_video.write(head_pose_out_frame)
