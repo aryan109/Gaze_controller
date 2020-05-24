@@ -13,11 +13,48 @@ virtual environment for runnig this application so the dependencies installed wi
 ## Demo
 *TODO:* Explain how to run a basic demo of your model.
 
+run `python app.py -h` to get information about the the commandline arguments.
+
+
+although there are no required parameters, all are set to defaults for the following scenario.
+
+- default paths to models present in _models_ folder
+- run inference on video present in starter/bin/demo.mp4
+- default precission is FP32
+- paths are set according to linux convention
+
 ## Documentation
 *TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
 
+You can run `python app.py -h` to see description of supported command line arguments.
+
+following is the list of supported commandline arguments:-
+
+
+  -p P :   Add precision of model(FP32, FP16, FP16-INT8)
+
+  -i I :      Path to input video file
+
+  -mp MP :    Precission of mouse controller(high, medium, low)
+
+  -ms MS :   Speed of mouse controller(high, medium, low)
+
+  -c C   :   enter 1 if use webcam else 0, default is 0
+
+  -fd FD  :  path to face detection model
+
+  -lr LR   : path to facial landmark detecction model
+
+  -hp HP   : path to face head pose estimation model
+
+  -ge GE   : path to gaze estimation model
+
+  -cmp CMP : set to true if want path to custom model
+
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
+
+model loading time : 
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
