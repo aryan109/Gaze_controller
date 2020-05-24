@@ -65,7 +65,11 @@ def main():
     hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
     gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
     mc = MC.MouseController(precision= args.mp, speed=args.ms)
-
+    fd.load_model()
+    fld.load_model()
+    hpe.load_model()
+    gme.load_model()
+    
 
 if __name__ == "__main__":
     main()
