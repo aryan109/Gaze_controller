@@ -6,6 +6,8 @@ import starter.src.mouse_controller as MC
 import cv2
 import os
 import argparse
+import time
+
 
 
 
@@ -71,7 +73,6 @@ def get_args():
 
     return args
 
-
 def main():
     args = get_args()
     if args.cmp == False:
@@ -92,10 +93,30 @@ def main():
     hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
     gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
     mc = MC.MouseController(precision=args.mp, speed=args.ms)
+    fd_start = time.time()
     fd.load_model()
+    fd_end = time.time()
+    fd_load_time = fd_end - fd_start
+    print('face detection model loading time is :'+str(fd_load_time))
+    
+    fld_start = time.time()
     fld.load_model()
+    fld_end = time.time()
+    fld_load_time = fld_end - fld_start
+    print('facial landmark detection model loading time is :'+str(fld_load_time))
+    
+    hpe_start = time.time()
     hpe.load_model()
+    hpe_end = time.time()
+    hpe_load_time = hpe_end - hpe_start
+    print('head pose estimation model loading time is :'+str(hpe_load_time))
+        
+    gme_start = time.time()
     gme.load_model()
+    gme_end = time.time()
+    gme_load_time = gme_end - gme_start
+    print('gaze model loading time is :'+str(gme_load_time))
+    print(f'total model loading time : {gme_load_time+hpe_load_time+fd_load_time+fld_load_time}')
     if(args.c != 1):
         video_file_path = args.i
     else:
@@ -161,6 +182,7 @@ def main():
 
             mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
+            break
         cap.release()
         cv2.destroyAllWindows()
     except Exception as e:

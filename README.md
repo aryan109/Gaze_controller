@@ -49,7 +49,14 @@ following is the list of supported commandline arguments:-
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
 
-model loading time : 
+face detection model loading time is :0.17 sec
+
+facial landmark detection model loading time is :0.08 sec
+
+head pose estimation model loading time is :0.08 sec
+gaze estimation model loading time is :0.10 sec
+
+total model loading time : 0.45
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
