@@ -43,11 +43,17 @@ def get_args():
     mp_desc = "Precission of mouse controller(high, medium, low)"
     ms_desc = "Speed of mouse controller(high, medium, low)"
     c_desc = "enter 1 if use webcam else 0, default is 0"
+    fd_desc = "path to face detection model"
+    lr_desc = "path to facial landmark detecction model"
+    hp_desc = "path to face head pose estimation model"
+    ge_desc = "path to gaze estimation model"
+    cmp_desc = "set to true if want path to custom model"
 
     parser._action_groups.pop()
 
     required = parser.add_argument_group('required arguments')
     optional = parser.add_argument_group('optional arguments')
+
 
     # -- Create the arguments
     required.add_argument("-p", help=p_desc, required=False, default='FP32')
@@ -55,6 +61,12 @@ def get_args():
     optional.add_argument("-mp", help=mp_desc, default='medium')
     optional.add_argument("-ms", help=ms_desc, default='medium')
     optional.add_argument("-c", help=ms_desc, default=0)
+    optional.add_argument("-fd", help=ms_desc, default=0)
+    optional.add_argument("-lr", help=ms_desc, default=0)
+    optional.add_argument("-hp", help=ms_desc, default=0)
+    optional.add_argument("-ge", help=ms_desc, default=0)
+    optional.add_argument("-cmp", help=cmp_desc, default=False)
+
 
     args = parser.parse_args()
 
@@ -63,13 +75,19 @@ def get_args():
 
 def main():
     args = get_args()
-    model_name1 = './models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
-    model_name2 = './models/intel/landmarks-regression-retail-0009/' + \
-        args.p+'/landmarks-regression-retail-0009'
-    model_name3 = './models/intel/head-pose-estimation-adas-0001/' + \
-        args.p+'/head-pose-estimation-adas-0001'
-    model_name4 = './models/intel/gaze-estimation-adas-0002/' + \
-        args.p+'/gaze-estimation-adas-0002'
+    if args.cmp == False:
+        model_name1 = './models/intel/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001'
+        model_name2 = './models/intel/landmarks-regression-retail-0009/' + \
+            args.p+'/landmarks-regression-retail-0009'
+        model_name3 = './models/intel/head-pose-estimation-adas-0001/' + \
+            args.p+'/head-pose-estimation-adas-0001'
+        model_name4 = './models/intel/gaze-estimation-adas-0002/' + \
+            args.p+'/gaze-estimation-adas-0002'
+    else:
+        model_name1 = args.fd
+        model_name2 = args.lr
+        model_name3 = args.hp
+        model_name4 = args.ge
     fd = FD.Model_Face_detection(model_name1, 'CPU')
     fld = FLD.Model_Facial_landmarks_de(model_name2, 'CPU')
     hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
