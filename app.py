@@ -54,7 +54,6 @@ def get_args():
     required = parser.add_argument_group('required arguments')
     optional = parser.add_argument_group('optional arguments')
 
-
     # -- Create the arguments
     required.add_argument("-p", help=p_desc, required=False, default='FP32')
     optional.add_argument("-i", help=i_desc, default='./starter/bin/demo.mp4')
@@ -66,7 +65,6 @@ def get_args():
     optional.add_argument("-hp", help=ms_desc, default=0)
     optional.add_argument("-ge", help=ms_desc, default=0)
     optional.add_argument("-cmp", help=cmp_desc, default=False)
-
 
     args = parser.parse_args()
 
@@ -162,7 +160,10 @@ def main():
 
             mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
-
+        cap.release()
+        cv2.destroyAllWindows()
+    except Exception as e:
+        print("Could not run Inference: ", e)
 
 if __name__ == "__main__":
     main()
