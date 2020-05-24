@@ -3,18 +3,14 @@ It is a simple python application that moves the mouse
 pointer according to the motion of our eyes.
 
 ## Project Set Up and Installation
-*TODO:* Explain the setup procedures to run your project. For instance, this can include your project directory structure, the models you need to download and where to place them etc. Also include details about how to install the dependencies your project requires.
 
 you need to have open vino installed in your device here is the [link](https://docs.openvinotoolkit.org/latest/index.html) to install it.
 
-After this you need to install the dependencies present in requirements.txt .I suggest you to create a 
-virtual environment for runnig this application so the dependencies installed will not interfere with existing packages.
+After this you need to install the dependencies present in _requirements.txt_ .I suggest you to create a virtual environment for runnig this application so the dependencies installed will not interfere with existing packages.
 
 ## Demo
-*TODO:* Explain how to run a basic demo of your model.
 
 run `python app.py -h` to get information about the the commandline arguments.
-
 
 although there are no required parameters, all are set to defaults for the following scenario.
 
@@ -24,7 +20,6 @@ although there are no required parameters, all are set to defaults for the follo
 - paths are set according to linux convention
 
 ## Documentation
-*TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
 
 You can run `python app.py -h` to see description of supported command line arguments.
 
