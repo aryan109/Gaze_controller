@@ -55,15 +55,15 @@ def get_args():
     optional = parser.add_argument_group('optional arguments')
 
     # -- Create the arguments
-    required.add_argument("-p", help=p_desc, required=False, default='FP32')
+    optional.add_argument("-p", help=p_desc, required=False, default='FP32')
     optional.add_argument("-i", help=i_desc, default='./starter/bin/demo.mp4')
     optional.add_argument("-mp", help=mp_desc, default='medium')
     optional.add_argument("-ms", help=ms_desc, default='medium')
-    optional.add_argument("-c", help=ms_desc, default=0)
-    optional.add_argument("-fd", help=ms_desc, default=0)
-    optional.add_argument("-lr", help=ms_desc, default=0)
-    optional.add_argument("-hp", help=ms_desc, default=0)
-    optional.add_argument("-ge", help=ms_desc, default=0)
+    optional.add_argument("-c", help=c_desc, default=0)
+    optional.add_argument("-fd", help=fd_desc, default=0)
+    optional.add_argument("-lr", help=lr_desc, default=0)
+    optional.add_argument("-hp", help=hp_desc, default=0)
+    optional.add_argument("-ge", help=ge_desc, default=0)
     optional.add_argument("-cmp", help=cmp_desc, default=False)
 
     args = parser.parse_args()
