@@ -51,7 +51,6 @@ following is the list of supported commandline arguments:-
   -of OF    flag to generate output file by default true, set to False to skip autput file generation
 
 ## Benchmarks
-*TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
 
 face detection model loading time is :0.17 sec
 
@@ -114,9 +113,12 @@ average inference time for gaze estimation model = 2.2 ms
 
 average total inference time = 33.3 ms
 
-
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
+
+as we can see  from the benchmarks the lower precission model(FP32 & INT8) takes less inference time as compared to FP32 models. This is because less precission models are lighter models and have quantinnzed weights. They have higher throughput but lower accuraacy.
+
+We can also note that when mouse controller is set to fast it takes least time of about 1.2 sec and when set to slow it takes highest time of about 10.6 sec. When mouse controller speed is set to fast, it quickly moves the pointer and is most responsive.
 
 ## Stand Out Suggestions
 This is where you can provide information about the stand out suggestions that you have attempted.
