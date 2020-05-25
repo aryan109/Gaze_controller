@@ -54,6 +54,15 @@ def draw_rectangle(xmin, ymin, xmax, ymax,image):
 
         return frame
 
+def draw_arrow(image, x_start, y_start, x_end,y_end):
+    color = (0,255,0)
+    start_point = (int(x_start),int(y_start))
+    end_point = (int(x_end),int(y_end))
+    thickness = 9
+    image = cv2.arrowedLine(image, start_point, end_point, 
+                                     color, thickness)
+    return image
+
 
 def get_args():
     '''
@@ -198,7 +207,7 @@ def main():
                                         xmax_offset +right_eye_rect_coords[2],
                                         ymax_offset +right_eye_rect_coords[3], 
                                         output_image)
-            
+
             left_eye_frame = crop_image(
                 resized_cropped_image, left_eye_rect_coords)
             right_eye_frame = crop_image(
