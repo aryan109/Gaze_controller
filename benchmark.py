@@ -137,6 +137,10 @@ def main():
     output_video_h = int(450)
     delta = 60
     movemnt_time = []
+    fd_time = []
+    fld_time = []
+    hpe_time = []
+    ge_time = []
     count = 0
     try:
         while cap.isOpened():
@@ -145,15 +149,20 @@ def main():
                 break
 
             infer_start = time.time()
+            fd_start = time.time()
             cropped_image,output_image, face_coords = fd.predict(frame, initial_dims)
-
+            fd_end = time.time()
+            fd_time.append(fd_end - fd_start)
             resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
                                                           width=output_video_w,
                                                           height=output_video_h)
 
+            fld_start = time.time()
             real_face_coords = fld.predict(
                 resized_cropped_image, [output_video_h, output_video_w])
 
+            fld_end = time.time()
+            fld_time.append(fld_end - fld_start)
             left_eye_coords = real_face_coords[:2]
             right_eye_coords = real_face_coords[2:4]
 
@@ -177,26 +186,48 @@ def main():
             resized_right_eye_frame = resize_image(
                 right_eye_frame, 2*delta, 2*delta)
 
+            hpe_start = time.time()
             head_pose_angles = hpe.predict(resized_cropped_image, [
                                            output_video_h, output_video_w])
+            hpe_end = time.time()
+            hpe_time.append(hpe_end - hpe_start)
+
+            ge_start = time.time()
 
             gaze_result = gme.predict(
                 head_pose_angles, resized_left_eye_frame, resized_right_eye_frame)
+            ge_end = time.time()
+            ge_time.append(ge_end - ge_start)
 
-            mc.move(gaze_result[0][0], gaze_result[0][1])
+           # mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
             infer_end = time.time()
-            print(f'time for 1 movement is: {infer_end-infer_start}')
+            print(f'time for 1 total isference is: {infer_end-infer_start}')
             movemnt_time.append(infer_end-infer_start)
-            count += 1
-            if count >= 30:
-                break
+            # count += 1
+            # if count >= 30:
+            #     break
         cap.release()
         cv2.destroyAllWindows()
         sum = 0
-        for i in movemnt_time:
+        sf = 0
+        sfld = 0
+        shpe = 0
+        sge = 0
+        for i,j,k,l,m in zip(movemnt_time,fd_time,fld_time,hpe_time,ge_time):
             sum += i
-        print(f'avg movement time is: {sum/len(movemnt_time)}')
+            sf += j
+            sfld += k
+            shpe += l
+            sge += m
+        
+        print(f'avg total inference time is: {sum/len(movemnt_time)}')
+        print(f'avg face detection model inference time is: {sf/len(fd_time)}')
+        print(f'avg face landmark detection model inference time is: {sfld/len(fld_time)}')
+        print(f'avg headpose detection model inference time is: {shpe/len(hpe_time)}')
+        print(f'avg gaze estimation inference time is: {sge/len(ge_time)}')
+
+
     except Exception as e:
         print("Could not run Inference: ", e)
 
