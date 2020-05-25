@@ -46,6 +46,10 @@ following is the list of supported commandline arguments:-
 
   -cmp CMP : set to true if want path to custom model
 
+  -o O     : path to output file (mp4)
+
+  -of OF    flag to generate output file by default true, set to False to skip autput file generation
+
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
 
