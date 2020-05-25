@@ -136,6 +136,8 @@ def main():
     output_video_w = int(300)
     output_video_h = int(450)
     delta = 60
+    movemnt_time = []
+    count = 0
     try:
         while cap.isOpened():
             ret, frame = cap.read()
@@ -143,7 +145,7 @@ def main():
                 break
 
             infer_start = time.time()
-            cropped_image,a,b = fd.predict(frame, initial_dims)
+            cropped_image,output_image, face_coords = fd.predict(frame, initial_dims)
 
             resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
                                                           width=output_video_w,
@@ -185,9 +187,16 @@ def main():
             print('pointer moved')
             infer_end = time.time()
             print(f'time for 1 movement is: {infer_end-infer_start}')
-            break
+            movemnt_time.append(infer_end-infer_start)
+            count += 1
+            if count >= 30:
+                break
         cap.release()
         cv2.destroyAllWindows()
+        sum = 0
+        for i in movemnt_time:
+            sum += i
+        print(f'avg movement time is: {sum/len(movemnt_time)}')
     except Exception as e:
         print("Could not run Inference: ", e)
 

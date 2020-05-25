@@ -62,7 +62,23 @@ gaze estimation model loading time is :0.10 sec
 
 total model loading time : 0.45 sec
 
-time for 1st movement is : 12.7 sec
+average movement time with different pression and speed
+
+| precission | speed |  avg movement time(sec) |
+| --- | --- | --- |
+|medium | medium | 5.42 |
+| high  | fast   | 1.22 |
+| high  | slow   | 10.61|
+| high  | medium | 5.40 |
+| medium| fast   | 1.24 |
+| medium| slow   | 10.61|
+| low   | fast   | 1.23 |
+| low   | medium | 5.42 |
+| low   | slow   | 10.85|
+
+
+
+
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
