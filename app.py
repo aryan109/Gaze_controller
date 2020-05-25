@@ -147,7 +147,7 @@ def main():
         out_video = cv2.VideoWriter(output_path,
                                 cv2.VideoWriter_fourcc(*'avc1'),
                                 fps,
-                                (output_video_w, output_video_h),
+                                (initial_w, initial_h),
                                 True)
     try:
         while cap.isOpened():
@@ -180,20 +180,25 @@ def main():
                 delta,
                 300)
 
+            xmin_offset = face_coords[0]
+            ymin_offset = face_coords[1]
+            xmax_offset = face_coords[0] - 50
+            ymax_offset = face_coords[1] - 65
+            
             # draw left eye box
-            output_image = draw_rectangle(face_coords[0] + left_eye_rect_coords[0], 
-                                        face_coords[1] +left_eye_rect_coords[1],
-                                        face_coords[0] +left_eye_rect_coords[2],
-                                        face_coords[1] +left_eye_rect_coords[3], 
+            output_image = draw_rectangle(xmin_offset + left_eye_rect_coords[0], 
+                                        ymin_offset +left_eye_rect_coords[1],
+                                        xmax_offset +left_eye_rect_coords[2],
+                                        ymax_offset +left_eye_rect_coords[3], 
                                         output_image)
 
             # draw right eye box
-            output_image = draw_rectangle(face_coords[0] + right_eye_rect_coords[0], 
-                                        face_coords[1] +right_eye_rect_coords[1],
-                                        face_coords[0] +right_eye_rect_coords[2],
-                                        face_coords[1] +right_eye_rect_coords[3], 
+            output_image = draw_rectangle(xmin_offset + right_eye_rect_coords[0], 
+                                        ymin_offset +right_eye_rect_coords[1],
+                                        xmax_offset +right_eye_rect_coords[2],
+                                        ymax_offset +right_eye_rect_coords[3], 
                                         output_image)
-
+            
             left_eye_frame = crop_image(
                 resized_cropped_image, left_eye_rect_coords)
             right_eye_frame = crop_image(
@@ -209,10 +214,12 @@ def main():
             gaze_result = gme.predict(
                 head_pose_angles, resized_left_eye_frame, resized_right_eye_frame)
 
-            mc.move(gaze_result[0][0], gaze_result[0][1])
+            if(args.of == False):
+                mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
             if args.of :
                 out_video.write(output_image)
+                print('printed output')
         cap.release()
         cv2.destroyAllWindows()
     except Exception as e:
