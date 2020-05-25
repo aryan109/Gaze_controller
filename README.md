@@ -90,6 +90,19 @@ average inference time for gaze estimation model = 3.5 ms
 
 average total inference time = 40.7 ms
 
+FP16:-
+
+average inference time for face detection model = 27.6 ms
+
+average inference time for face landmark detection model = 1.1 ms
+
+average inference time for headpose estimation model = 2.6 ms
+
+average inference time for gaze estimation model = 2.7 ms
+
+average total inference time = 34.9 ms
+
+
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
