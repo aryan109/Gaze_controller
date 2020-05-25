@@ -61,7 +61,7 @@ gaze estimation model loading time is :0.10 sec
 
 total model loading time : 0.45 sec
 
-average movement time with different pression and speed
+### average pointer movement time with different pression and speed:-
 
 | precission | speed |  avg movement time(sec) |
 | --- | --- | --- |
@@ -75,9 +75,9 @@ average movement time with different pression and speed
 | low   | medium | 5.42 |
 | low   | slow   | 10.85|
 
-Inference time :
+### Inference time :
 
-FP32:- 
+__FP32:-__ 
 
 average inference time for face detection model = 31.6 ms
 
@@ -89,7 +89,7 @@ average inference time for gaze estimation model = 3.5 ms
 
 average total inference time = 40.7 ms
 
-FP16:-
+__FP16:-__
 
 average inference time for face detection model = 27.6 ms
 
@@ -101,7 +101,7 @@ average inference time for gaze estimation model = 2.7 ms
 
 average total inference time = 34.9 ms
 
-INT8:-
+__INT8:-__
 
 average inference time for face detection model = 26.9 ms
 
@@ -114,17 +114,8 @@ average inference time for gaze estimation model = 2.2 ms
 average total inference time = 33.3 ms
 
 ## Results
-*TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
 
-as we can see  from the benchmarks the lower precission model(FP32 & INT8) takes less inference time as compared to FP32 models. This is because less precission models are lighter models and have quantinnzed weights. They have higher throughput but lower accuraacy.
+As we can see  from the benchmarks the lower precission model(FP32 & INT8) takes less inference time as compared to FP32 models. This is because less precission models are lighter models and have quantinnzed weights. They have higher throughput but lower accuraacy.
 
 We can also note that when mouse controller is set to fast it takes least time of about 1.2 sec and when set to slow it takes highest time of about 10.6 sec. When mouse controller speed is set to fast, it quickly moves the pointer and is most responsive.
 
-## Stand Out Suggestions
-This is where you can provide information about the stand out suggestions that you have attempted.
-
-### Async Inference
-If you have used Async Inference in your code, benchmark the results and explain its effects on power and performance of your project.
-
-### Edge Cases
-There will be certain situations that will break your inference flow. For instance, lighting changes or multiple people in the frame. Explain some of the edge cases you encountered in your project and how you solved them to make your project more robust.
