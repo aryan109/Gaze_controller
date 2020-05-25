@@ -8,6 +8,16 @@ import os
 import argparse
 
 
+def denormalize_coordinates(box, initial_w,initial_h):
+        '''
+        Before feeding the output of this model to the next model,
+        you might have to preprocess the output. This function is where you can do that.
+        '''
+        coords = [box[3] * initial_w,#width
+                  box[4] * initial_h,
+                  box[5] * initial_w,
+                  box[6] * initial_h]
+        return coords
 
 def resize_image(image, width, height):
     dims = (width, height)
@@ -31,6 +41,18 @@ def generate_rectangle_coordinates_from_midpoint(x, y, delta, maxlim):
     ymax = min(y + delta, maxlim)
     rect_coords = [xmin, ymin, xmax, ymax]
     return rect_coords
+
+def draw_rectangle(self, coords, image):
+
+        frame = image
+        xmin = int(coords[0])
+        ymin = int(coords[1])
+        xmax = int(coords[2])
+        ymax = int(coords[3])
+
+        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255, 1))
+
+        return frame
 
 
 def get_args():
