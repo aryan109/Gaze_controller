@@ -142,7 +142,8 @@ def main():
             if not ret:
                 break
 
-            cropped_image = fd.predict(frame, initial_dims)
+            infer_start = time.time()
+            cropped_image,a,b = fd.predict(frame, initial_dims)
 
             resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
                                                           width=output_video_w,
@@ -182,6 +183,8 @@ def main():
 
             mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
+            infer_end = time.time()
+            print(f'time for 1 movement is: {infer_end-infer_start}')
             break
         cap.release()
         cv2.destroyAllWindows()
