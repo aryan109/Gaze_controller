@@ -42,13 +42,13 @@ def generate_rectangle_coordinates_from_midpoint(x, y, delta, maxlim):
     rect_coords = [xmin, ymin, xmax, ymax]
     return rect_coords
 
-def draw_rectangle(self, coords, image):
+def draw_rectangle(xmin, ymin, xmax, ymax,image):
 
         frame = image
-        xmin = int(coords[0])
-        ymin = int(coords[1])
-        xmax = int(coords[2])
-        ymax = int(coords[3])
+        xmin = int(xmin)
+        ymin = int(ymin)
+        xmax = int(xmax)
+        ymax = int(ymax)
 
         cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 0, 255, 1))
 
@@ -155,7 +155,7 @@ def main():
             if not ret:
                 break
 
-            cropped_image, output_image = fd.predict(frame, initial_dims)
+            cropped_image, output_image, face_coords = fd.predict(frame, initial_dims)
 
             resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
                                                           width=output_video_w,
@@ -167,6 +167,8 @@ def main():
             left_eye_coords = real_face_coords[:2]
             right_eye_coords = real_face_coords[2:4]
 
+            
+
             left_eye_rect_coords = generate_rectangle_coordinates_from_midpoint(
                 left_eye_coords[0],
                 left_eye_coords[1],
@@ -177,6 +179,20 @@ def main():
                 right_eye_coords[1],
                 delta,
                 300)
+
+            # draw left eye box
+            output_image = draw_rectangle(face_coords[0] + left_eye_rect_coords[0], 
+                                        face_coords[1] +left_eye_rect_coords[1],
+                                        face_coords[0] +left_eye_rect_coords[2],
+                                        face_coords[1] +left_eye_rect_coords[3], 
+                                        output_image)
+
+            # draw right eye box
+            output_image = draw_rectangle(face_coords[0] + right_eye_rect_coords[0], 
+                                        face_coords[1] +right_eye_rect_coords[1],
+                                        face_coords[0] +right_eye_rect_coords[2],
+                                        face_coords[1] +right_eye_rect_coords[3], 
+                                        output_image)
 
             left_eye_frame = crop_image(
                 resized_cropped_image, left_eye_rect_coords)

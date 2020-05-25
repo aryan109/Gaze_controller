@@ -90,7 +90,7 @@ class Model_Face_detection:
                 output_image = self.draw_outputs(coords, image)
                 cropped_image = self.crop_image(image, coords)
                 # cv2.imshow("cropped image", cropped_image)
-                return cropped_image, output_image
+                return cropped_image, output_image, coords
 
     # def check_model(self): # todo fill this method
         # raise NotImplementedError
