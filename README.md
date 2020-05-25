@@ -6,31 +6,32 @@ pointer according to the motion of our eyes.
 
 you need to have open vino installed in your device here is the [link](https://docs.openvinotoolkit.org/latest/index.html) to install it.
 
-After this you need to install the dependencies present in _requirements.txt_ .I suggest you to create a virtual environment for runnig this application so the dependencies installed will not interfere with existing packages.
+After this, you need to install the dependencies present in _requirements.txt_ .I suggest you create a virtual environment for running this application so the dependencies installed will not interfere with existing packages.
 
 ## Demo
 
 run `python app.py -h` to get information about the the commandline arguments.
 
-although there are no required parameters, all are set to defaults for the following scenario.
+Although there are no required parameters, all are set to defaults for the following scenario.
 
 - default paths to models present in _models_ folder
 - run inference on video present in starter/bin/demo.mp4
-- default precission is FP32
-- paths are set according to linux convention
+- the default precision is FP32
+- paths are set according to Linux convention
 
 ## Documentation
 
 You can run `python app.py -h` to see description of supported command line arguments.
 
-following is the list of supported commandline arguments:-
+
+following is the list of supported command-line arguments:-
 
 
-  -p P :   Add precision of model(FP32, FP16, FP16-INT8)
+  -p P:   Add precision of model(FP32, FP16, FP16-INT8)
 
   -i I :      Path to input video file
 
-  -mp MP :    Precission of mouse controller(high, medium, low)
+  -mp MP :    Precision of mouse controller(high, medium, low)
 
   -ms MS :   Speed of mouse controller(high, medium, low)
 
@@ -38,28 +39,28 @@ following is the list of supported commandline arguments:-
 
   -fd FD  :  path to face detection model
 
-  -lr LR   : path to facial landmark detecction model
+  -lr LR   : the path to facial landmark detection model
 
-  -hp HP   : path to face head pose estimation model
+  -hp HP   : the path to face head pose estimation model
 
-  -ge GE   : path to gaze estimation model
+  -ge GE   : the path to gaze-estimation model
 
   -cmp CMP : set to true if want path to custom model
 
-  -o O     : path to output file (mp4)
+  -o O     : the path to the output file (mp4)
 
-  -of OF    flag to generate output file by default true, set to False to skip autput file generation
+  -of OF    flag to generate output file by default true, set to False to skip output file generation
 
 ## Benchmarks
 
-face detection model loading time is :0.17 sec
+face detection model loading time is:0.17 sec
 
-facial landmark detection model loading time is :0.08 sec
+facial landmark detection model loading time is:0.08 sec
 
-head pose estimation model loading time is :0.08 sec
-gaze estimation model loading time is :0.10 sec
+head pose estimation model loading time is:0.08 sec
+gaze estimation model loading time is:0.10 sec
 
-total model loading time : 0.45 sec
+total model loading time: 0.45 sec
 
 ### average pointer movement time with different pression and speed:-
 
@@ -83,7 +84,7 @@ average inference time for face detection model = 31.6 ms
 
 average inference time for face landmark detection model = 1.3 ms
 
-average inference time for headpose estimation model = 3.2 ms
+average inference time for head pose estimation model = 3.2 ms
 
 average inference time for gaze estimation model = 3.5 ms
 
@@ -95,7 +96,7 @@ average inference time for face detection model = 27.6 ms
 
 average inference time for face landmark detection model = 1.1 ms
 
-average inference time for headpose estimation model = 2.6 ms
+average inference time for head pose estimation model = 2.6 ms
 
 average inference time for gaze estimation model = 2.7 ms
 
@@ -107,7 +108,7 @@ average inference time for face detection model = 26.9 ms
 
 average inference time for face landmark detection model = 1.1 ms
 
-average inference time for headpose estimation model = 2.2 ms
+average inference time for head pose estimation model = 2.2 ms
 
 average inference time for gaze estimation model = 2.2 ms
 
@@ -115,7 +116,7 @@ average total inference time = 33.3 ms
 
 ## Results
 
-As we can see  from the benchmarks the lower precission model(FP32 & INT8) takes less inference time as compared to FP32 models. This is because less precission models are lighter models and have quantinnzed weights. They have higher throughput but lower accuraacy.
+As we can see from the benchmarks the lower precision model(FP32 & INT8) takes less inference time as compared to FP32 models. This is because fewer precision models are lighter models and have quantized weights. They have higher throughput but lower accuracy.
 
-We can also note that when mouse controller is set to fast it takes least time of about 1.2 sec and when set to slow it takes highest time of about 10.6 sec. When mouse controller speed is set to fast, it quickly moves the pointer and is most responsive.
+We can also note that when the mouse controller is set to fast it takes the least time of about 1.2 sec and when set to slow it takes the highest time of about 10.6 sec. When mouse controller speed is set to fast, it quickly moves the pointer and is most responsive.
 
