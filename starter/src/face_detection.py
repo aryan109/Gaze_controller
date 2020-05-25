@@ -87,10 +87,10 @@ class Model_Face_detection:
             if conf == max_conf  :
 
                 coords = self.preprocess_output(box, initial_dims)
-                # image = self.draw_outputs(coords, image)
+                output_image = self.draw_outputs(coords, image)
                 cropped_image = self.crop_image(image, coords)
                 # cv2.imshow("cropped image", cropped_image)
-                return cropped_image
+                return cropped_image, output_image
 
     # def check_model(self): # todo fill this method
         # raise NotImplementedError

@@ -49,6 +49,8 @@ def get_args():
     hp_desc = "path to face head pose estimation model"
     ge_desc = "path to gaze estimation model"
     cmp_desc = "set to true if want path to custom model"
+    o_desc = "path to output file (mp4)"
+    of_desc = "flag to generate output file by default true, set to False to skip autput file generation"
 
     parser._action_groups.pop()
 
@@ -66,6 +68,9 @@ def get_args():
     optional.add_argument("-hp", help=hp_desc, default=0)
     optional.add_argument("-ge", help=ge_desc, default=0)
     optional.add_argument("-cmp", help=cmp_desc, default=False)
+    optional.add_argument("-o", help=o_desc, default='./output/output.mp4')
+    optional.add_argument("-of", help=of_desc, default=True)
+
 
     args = parser.parse_args()
 
@@ -115,13 +120,20 @@ def main():
     output_video_w = int(300)
     output_video_h = int(450)
     delta = 60
+    if args.of :
+        output_path = args.o
+        out_video = cv2.VideoWriter(output_path,
+                                cv2.VideoWriter_fourcc(*'avc1'),
+                                fps,
+                                (output_video_w, output_video_h),
+                                True)
     try:
         while cap.isOpened():
             ret, frame = cap.read()
             if not ret:
                 break
 
-            cropped_image = fd.predict(frame, initial_dims)
+            cropped_image, output_image = fd.predict(frame, initial_dims)
 
             resized_cropped_image = fd.reshape_after_crop(cropped_image=cropped_image,
                                                           width=output_video_w,
@@ -161,6 +173,8 @@ def main():
 
             mc.move(gaze_result[0][0], gaze_result[0][1])
             print('pointer moved')
+            if args.of :
+                out_video.write(output_image)
         cap.release()
         cv2.destroyAllWindows()
     except Exception as e:
