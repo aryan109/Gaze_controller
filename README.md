@@ -102,6 +102,17 @@ average inference time for gaze estimation model = 2.7 ms
 
 average total inference time = 34.9 ms
 
+INT8:-
+
+average inference time for face detection model = 26.9 ms
+
+average inference time for face landmark detection model = 1.1 ms
+
+average inference time for headpose estimation model = 2.2 ms
+
+average inference time for gaze estimation model = 2.2 ms
+
+average total inference time = 33.3 ms
 
 
 ## Results
