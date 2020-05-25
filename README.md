@@ -19,6 +19,8 @@ Although there are no required parameters, all are set to defaults for the follo
 - the default precision is FP32
 - paths are set according to Linux convention
 
+just type `python app.py` to run the aplication.
+
 ## Documentation
 
 You can run `python app.py -h` to see description of supported command line arguments.
