@@ -20,3 +20,6 @@ class MouseController:
     def move(self, x, y):
         print('moving')
         pyautogui.moveRel(x*self.precision, -1*y*self.precision, duration=self.speed)
+    
+    def get_coord(self, x, y):
+        return (x*self.precision/10, -1*y*self.precision/10)

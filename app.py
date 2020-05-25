@@ -58,7 +58,7 @@ def draw_arrow(image, x_start, y_start, x_end,y_end):
     color = (0,255,0)
     start_point = (int(x_start),int(y_start))
     end_point = (int(x_end),int(y_end))
-    thickness = 9
+    thickness = 4
     image = cv2.arrowedLine(image, start_point, end_point, 
                                      color, thickness)
     return image
@@ -225,6 +225,18 @@ def main():
 
             if(args.of == False):
                 mc.move(gaze_result[0][0], gaze_result[0][1])
+            if(args.of):
+                x_move, y_move = mc.get_coord(gaze_result[0][0],gaze_result[0][1])
+            output_image = draw_arrow(output_image, 
+                                    left_eye_coords[0] + xmax_offset + 25,
+                                    left_eye_coords[1] + ymax_offset + 25,
+                                    left_eye_coords[0] + x_move + xmin_offset,
+                                    left_eye_coords[1] + y_move + ymin_offset)
+            output_image = draw_arrow(output_image, 
+                                    right_eye_coords[0] + xmax_offset + 25,
+                                    right_eye_coords[1] + ymax_offset + 25,
+                                    right_eye_coords[0] + x_move + xmin_offset,
+                                    right_eye_coords[1] + y_move + ymin_offset)
             print('pointer moved')
             if args.of :
                 out_video.write(output_image)
