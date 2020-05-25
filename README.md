@@ -76,8 +76,19 @@ average movement time with different pression and speed
 | low   | medium | 5.42 |
 | low   | slow   | 10.85|
 
+Inference time :
 
+FP32:- 
 
+average inference time for face detection model = 31.6 ms
+
+average inference time for face landmark detection model = 1.3 ms
+
+average inference time for headpose estimation model = 3.2 ms
+
+average inference time for gaze estimation model = 3.5 ms
+
+average total inference time = 40.7 ms
 
 
 ## Results
