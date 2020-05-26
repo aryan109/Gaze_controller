@@ -84,6 +84,8 @@ def get_args():
     cmp_desc = "set to true if want path to custom model"
     o_desc = "path to output file (mp4)"
     of_desc = "flag to generate output file by default true, set to False to skip autput file generation"
+    d_desc = "Choose hardware on which you have to run(Default is set to 'CPU'"
+    
 
     parser._action_groups.pop()
 
@@ -103,6 +105,7 @@ def get_args():
     optional.add_argument("-cmp", help=cmp_desc, default=False)
     optional.add_argument("-o", help=o_desc, default='./output/output.mp4')
     optional.add_argument("-of", help=of_desc, default=True)
+    optional.add_argument("-d", help =d_desc, default='CPU')
 
 
     args = parser.parse_args()
@@ -125,10 +128,10 @@ def main():
         model_name2 = args.lr
         model_name3 = args.hp
         model_name4 = args.ge
-    fd = FD.Model_Face_detection(model_name1, 'CPU')
-    fld = FLD.Model_Facial_landmarks_de(model_name2, 'CPU')
-    hpe = HPE.Model_Head_pose_estimation(model_name3, 'CPU')
-    gme = GME.Model_Gaze_estimation(model_name4, 'CPU')
+    fd = FD.Model_Face_detection(model_name1, args.d)
+    fld = FLD.Model_Facial_landmarks_de(model_name2, args.d)
+    hpe = HPE.Model_Head_pose_estimation(model_name3, args.d)
+    gme = GME.Model_Gaze_estimation(model_name4, args.d)
     mc = MC.MouseController(precision=args.mp, speed=args.ms)
     fd.load_model()
     fld.load_model()
