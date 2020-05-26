@@ -37,7 +37,7 @@ following is the list of supported command-line arguments:-
 
   -ms MS :   Speed of mouse controller(high, medium, low)
 
-  -c C   :   enter 1 if use webcam else 0, default is 0
+  -c C   :   enter `True` if use webcam else `False`, default is `False`
 
   -fd FD  :  path to face detection model
 

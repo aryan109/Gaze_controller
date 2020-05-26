@@ -7,7 +7,7 @@ import cv2
 import os
 import argparse
 import logging
-logging.basicConfig(filename='app.log', filemode='w') # if you want to log it into file
+logging.basicConfig(filename='app.log', filemode='w',level=logging.INFO) # if you want to log it into file
 
 
 def denormalize_coordinates(box, initial_w,initial_h):
@@ -95,7 +95,7 @@ def get_args():
     optional.add_argument("-i", help=i_desc, default='./starter/bin/demo.mp4')
     optional.add_argument("-mp", help=mp_desc, default='medium')
     optional.add_argument("-ms", help=ms_desc, default='medium')
-    optional.add_argument("-c", help=c_desc, default=0)
+    optional.add_argument("-c", help=c_desc,type=bool ,default=False)
     optional.add_argument("-fd", help=fd_desc, default=0)
     optional.add_argument("-lr", help=lr_desc, default=0)
     optional.add_argument("-hp", help=hp_desc, default=0)
@@ -134,20 +134,22 @@ def main():
     fld.load_model()
     hpe.load_model()
     gme.load_model()
-    if(args.c != 1):
+    if(args.c == False):
         video_file_path = args.i
     else:
         video_file_path = 0
+        print("webcam")
+        logging.info("video stream from webcam")
     try:
         cap = cv2.VideoCapture(video_file_path)
         print('captured video')
-        logging.info("captured video")
+        logging.info("captured video file: "+str(video_file_path))
     except FileNotFoundError:
         print("Cannot locate video file: " + video_file_path)
-        logging.info("Cannot locate video file: " + video_file_path)
+        logging.info("Cannot locate video file: ")
     except Exception as e:
         print("Something else went wrong with the video file: ", e)
-        logging.info("Something else went wrong with the video file: ", e)
+        logging.info("Something else went wrong with the video file: "+str(e))
     initial_w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     initial_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     initial_dims = [initial_h, initial_w]
@@ -158,6 +160,8 @@ def main():
     delta = 60
     if args.of :
         output_path = args.o
+        print("writing output to:"+str(output_path))
+        logging.info("writing output to:"+str(output_path))
         out_video = cv2.VideoWriter(output_path,
                                 cv2.VideoWriter_fourcc(*'avc1'),
                                 fps,
